@@ -27,3 +27,5 @@ class User(db.Model):
     student = db.relationship('Student', back_populates='user', uselist=False) 
     # relationship to an admin
     admin = db.relationship('Admin', back_populates='user', uselist=False)
+    # relationship with lecturer
+    lecturer = db.relationship('Lecturer', back_populates='user', uselist=False)
