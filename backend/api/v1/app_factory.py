@@ -6,6 +6,7 @@ from flask import Flask
 from backend.models.engine.storage import db
 from backend.models.user import User
 from backend.models.student import Student
+from backend.models.admin import Admin
 
 def create_app(configuration=None):
     """Creates and returns the application object"""

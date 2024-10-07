@@ -22,6 +22,8 @@ class User(db.Model):
     email = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(UserRole), nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
-
-    # relationship back to a student
-    student = db.relationship('Student', uselist=False)
+    
+    # relationship to a student
+    student = db.relationship('Student', back_populates='user', uselist=False) 
+    # relationship to an admin
+    admin = db.relationship('Admin', back_populates='user', uselist=False)
