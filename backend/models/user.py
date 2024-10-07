@@ -5,14 +5,18 @@
 import enum
 from .engine.storage import db
 
+
 class UserRole(enum.Enum):
     """Defines the possible roles a user can have"""
+
     ADMIN = 'admin'
     STUDENT = 'student'
     LECTURER = 'lecturer'
 
+
 class User(db.Model):
     """Represents a user with attributes common to all users of the application"""
+
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -22,10 +26,12 @@ class User(db.Model):
     email = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(UserRole), nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
-    
+
     # relationship to a student
-    student = db.relationship('Student', back_populates='user', uselist=False) 
+    student = db.relationship('Student', back_populates='user', uselist=False)
     # relationship to an admin
     admin = db.relationship('Admin', back_populates='user', uselist=False)
     # relationship with lecturer
-    lecturer = db.relationship('Lecturer', back_populates='user', uselist=False)
+    lecturer = db.relationship(
+        'Lecturer', back_populates='user', uselist=False
+    )

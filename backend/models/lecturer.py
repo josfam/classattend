@@ -4,11 +4,13 @@
 
 from .engine.storage import db
 
+
 class Lecturer(db.Model):
     """Represents a lecturer"""
+
     __tablename__ = 'lecturers'
 
-    id = db.Column(db.Integer, primary_key=True ,autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     faculty = db.Column(db.String(120), nullable=False)
     title = db.Column(db.String(60), nullable=False)
