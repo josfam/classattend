@@ -8,7 +8,8 @@ from backend.models.user import User
 from backend.models.student import Student
 from backend.models.admin import Admin
 from backend.models.lecturer import Lecturer
-from backend.models.classrooms import ClassRoom
+from backend.models.classroom import Classroom
+from backend.models.student_classroom import StudentClassroom
 
 
 def create_app(configuration=None):

@@ -22,3 +22,5 @@ class Student(db.Model):
 
     # relationship back to the user table
     user = db.relationship('User', back_populates='student', uselist=False)
+    # relationship with classrooms via the association table
+    classrooms = db.relationship('StudentClassroom', back_populates='student')

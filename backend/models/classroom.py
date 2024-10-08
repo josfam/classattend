@@ -6,7 +6,7 @@ from datetime import datetime as dt
 from .engine.storage import db
 
 
-class ClassRoom(db.Model):
+class Classroom(db.Model):
     """Represents a classroom where attendance can be opened, and taken"""
 
     __tablename__ = 'classrooms'
@@ -23,3 +23,5 @@ class ClassRoom(db.Model):
 
     # relationship to the lecturer
     lecturer = db.relationship('Lecturer', back_populates='classrooms')
+    # relationship to students via an association table
+    students = db.relationship('StudentClassroom', back_populates='classroom')
