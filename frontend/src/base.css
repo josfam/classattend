@@ -1,0 +1,7 @@
+.form-input {
+	@apply text-2xl pt-2 h-fit border border-slate-300
+}
+
+.form-item {
+	@apply flex flex-col items-start mb-2
+}
