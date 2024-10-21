@@ -11,7 +11,8 @@ from backend.models.admin import Admin
 from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
 from backend.models.student_classroom import StudentClassroom
-
+# blueprints
+from backend.routes import auth_route
 
 def create_app(configuration=None):
     """Creates and returns the application object"""
@@ -23,7 +24,7 @@ def create_app(configuration=None):
     # configs for flask session
     app.config['SESSION_TYPE'] = 'sqlalchemy'
     app.config['SESSION_SQLALCHEMY'] = db
-    app.config['SESSION_USE_SIGNER'] = True # sign the cookie for security
+    # app.config['SESSION_USE_SIGNER'] = True # sign the cookie for security
     app.config['SESSION_PERMANENT'] = True # sessions are cleared on explicit logout or after expiration
 
 
@@ -40,5 +41,6 @@ def create_app(configuration=None):
         db.create_all()
 
     # register blueprints
+    app.register_blueprint(auth_route)
 
     return app

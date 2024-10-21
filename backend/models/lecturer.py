@@ -18,4 +18,4 @@ class Lecturer(db.Model):
     # relationship with user
     user = db.relationship('User', back_populates='lecturer', uselist=False)
     # relationship with classrooms
-    classrooms = db.relationship('ClassRoom', back_populates='lecturer')
+    classrooms = db.relationship('Classroom', back_populates='lecturer')

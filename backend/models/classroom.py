@@ -16,7 +16,7 @@ class Classroom(db.Model):
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=False)
     lecturer_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), nullable=True
+        db.Integer, db.ForeignKey('lecturers.id'), nullable=True
     )
     created_at = db.Column(db.DateTime, nullable=False, default=dt.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=dt.now)
@@ -24,4 +24,4 @@ class Classroom(db.Model):
     # relationship to the lecturer
     lecturer = db.relationship('Lecturer', back_populates='classrooms')
     # relationship to students via an association table
-    students = db.relationship('StudentClassroom', back_populates='classroom')
+    students = db.relationship('StudentClassroom', back_populates='classrooms')
