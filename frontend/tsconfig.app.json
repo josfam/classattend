@@ -6,6 +6,14 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+	/* shadcn manual install requirement */
+	"baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
