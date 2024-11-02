@@ -26,15 +26,20 @@ type FormSchema = {
   faculty: "Science and Technology" | "Law" | "Business and Management" | "Post Graduate Studies and Research" | "Socio-Economic Sciences";
   title: "Mr." | "Mrs." | "Ms." | "Madam" | "Professor" |"Doctor";
   staffId: string;
+  studentId: string;
 }
 
 interface UserOptionsProps {
-  form: UseFormReturn<FormSchema, any, undefined>;
+  form: UseFormReturn<FormSchema, undefined>;
   nextStep: () => void;
 }
 
 interface LecturerOptionsProps {
-  form: UseFormReturn<FormSchema, any, undefined>;
+  form: UseFormReturn<FormSchema, undefined>;
+}
+
+interface StudentOptionsProps {
+  form: UseFormReturn<FormSchema, undefined>;
 }
 
 const UserOptions = ({ form, nextStep }: UserOptionsProps) => {
@@ -131,8 +136,22 @@ const UserOptions = ({ form, nextStep }: UserOptionsProps) => {
   )
 }
 
-const StudentOptions = () => {
-
+const StudentOptions = ({ form }: StudentOptionsProps) => {
+  return (
+    <>
+      <FormField
+        control={form.control}
+        name="studentId"
+        render = {({ field }) => (
+          <FormItem className="form-item">
+            <FormLabel className="text-base">Student Id</FormLabel>
+            <Input {...field} placeholder="Enter your student id" className="text-lg bg-white"/>
+            <FormMessage/>
+          </FormItem>
+        )}
+      />
+    </>
+  )
 }
 
 const LecturerOptions = ({ form }: LecturerOptionsProps) => {

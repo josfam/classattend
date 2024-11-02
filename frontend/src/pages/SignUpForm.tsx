@@ -19,7 +19,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-import { UserOptions, LecturerOptions } from "@/components/UserFormsOptions";
+import { UserOptions, LecturerOptions, StudentOptions } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
 
 const signupFormSchema = z.object({
@@ -47,7 +47,10 @@ const signupFormSchema = z.object({
   ),
   staffId: z.string()
     .min(1,
-      {message: "Provide your staffId"}),
+      {message: "Provide your staff id"}),
+  studentId: z.string()
+    .min(1,
+      {message: "Provide your student id"}),
 })
 
 const SignupForm:React.FC = () => {
@@ -64,10 +67,8 @@ const SignupForm:React.FC = () => {
 			email: "",
 			password: "",
       passwordConfirmation: "",
-      role: "",
-      faculty: "",
-      title: "",
       staffId: "",
+      studentId: "",
 		},
     mode: "onChange",
 	})
@@ -127,7 +128,7 @@ const SignupForm:React.FC = () => {
             )}
 
             {userRole === 'Student' && (
-              <h2>You are a student</h2>
+              <StudentOptions form={form}/>
             )}
 
             <div className="flex gap-4">
