@@ -3,5 +3,18 @@
 }
 
 .form-item {
-	@apply flex flex-col items-start mb-2
+	@apply flex flex-col items-start flex-grow
+}
+
+/* buttons */
+.btn-pri {
+	@apply flex w-full h-12 items-center justify-center mt-0 text-lg text-white bg-sky-700
+	hover:bg-sky-800
+	active:bg-sky-900
+}
+
+.btn-sec {
+	@apply text-sky-700 bg-transparent border border-sky-700
+	hover:bg-sky-700 hover:text-white
+	active:bg-sky-900 active:text-white
 }
