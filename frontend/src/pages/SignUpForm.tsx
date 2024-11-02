@@ -1,130 +1,151 @@
-import React from "react";
+import React, { useState, useEffect }from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 
 // shadcn components
-import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormField,
 	FormLabel,
-	FormControl,
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form"
-import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
-import { Input } from "@/components/ui/input";
+import { UserOptions, LecturerOptions } from "@/components/UserFormsOptions";
+import { Card, CardHeader } from "@/components/ui/card";
 
 const signupFormSchema = z.object({
-	firstname: z.string().min(2,
-		{message: "Must be longer than 2 characters"}).max(50,
-			{message: "Must be less than 50 characters"}),
-	middlename: z.string().max(50,
-		{message: "Must be less than 50 characters"}).optional(),
-	lastname: z.string(),
-	email: z.string().email('This is not a valid email'),
+	firstname: z.string()
+    .min(2, {message: "Must be longer than 2 characters"})
+    .max(50, {message: "Must be less than 50 characters"}),
+	lastname: z.string()
+    .min(2, {message: "Must be longer than 2 characters"})
+    .max(50, "Must be less than 50 characters"),
+	email: z.string()
+    .email("This is not a valid email"),
+  role: z.enum(
+    ["Student", "Lecturer"],
+    {message: "Choose either Student or Lecturer"}
+  ),
 	password: z.string(),
+  passwordConfirmation: z.string(),
+  faculty: z.enum(
+    ["Science and Technology", "Law", "Business and Management", "Post Graduate Studies and Research", "Socio-Economic Sciences"],
+    {message: "Choose at least one faculty"}
+  ),
+  title: z.enum(
+    ["Mr.", "Mrs.", "Ms.", "Madam", "Professor", "Doctor"],
+    {message: "Choose at least one title"}
+  ),
+  staffId: z.string()
+    .min(1,
+      {message: "Provide your staffId"}),
 })
 
 const SignupForm:React.FC = () => {
+  const [formStep, setFormStep] = useState<number>(1); // current step in the form
+  const nextStep = () => setFormStep((current) => current + 1);
+  const prevStep = () => setFormStep((current) => current - 1);
+
 	// form definition
 	const form = useForm<z.infer<typeof signupFormSchema>>({
 		resolver: zodResolver(signupFormSchema),
 		defaultValues: {
-			firstname: '',
-			middlename: '',
-			lastname: '',
-			email: '',
-			password: ''
-		}
+			firstname: "",
+			lastname: "",
+			email: "",
+			password: "",
+      passwordConfirmation: "",
+      role: "",
+      faculty: "",
+      title: "",
+      staffId: "",
+		},
+    mode: "onChange",
 	})
-	// submit handler
+
+  const userRole = form.watch("role"); // watch for changes in the role form element
+
+  // submit handler
 	const onSubmit = (values: z.infer<typeof signupFormSchema>) => {
 		console.log(values);
 	}
 
+  // update the role on change
+  useEffect(() => {
+    console.log(`Role: ${userRole} selected`);
+  }, [userRole])
+
 	return (
-		<Card className="w-1/2 h-fit p-4 flex items-center justify-center">
-		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 h-full p-4 flex flex-col gap-4">
-			<h1 className="text-2xl mb-4 mt-0">Signup</h1>
-			<FormField
-				// control={form.control}
-				name="firstname"
-				render={({ field }) => (
-					<FormItem className="form-item">
-						<FormLabel>First name</FormLabel>
-						<FormControl>
-							<Input placeholder="Enter your first name" {...field}
-							className="form-input"/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-					)}
-			/>
-			<FormField
-				// control={form.control}
-				name="middlename"
-				render={({ field }) => (
-					<FormItem className="form-item">
-						<FormLabel>Middle name / Initials</FormLabel>
-						<FormControl>
-							<Input placeholder="Optional" {...field}
-							className="form-input"/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-					)}
-			/>
-			<FormField
-				// control={form.control}
-				name="lastname"
-				render={({ field }) => (
-					<FormItem className="form-item">
-						<FormLabel>Surname</FormLabel>
-						<FormControl>
-							<Input placeholder="Enter your lastname" {...field}
-							className="form-input"/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-					)}
-			/>
+		<Card className="w-1/2 pb-8 h-fit flex flex-col items-center justify-center
+      bg-slate-100 border shadow-lg shadow-slate-300">
+      <CardHeader className="bg-slate-300 w-full rounded-t-lg text-xl font-medium p-4 mb-4 text-slate-600">
+        {`Sign up (${formStep}/2)`}
+      </CardHeader>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full py-4 px-10 flex flex-col gap-6">
+          {/* conditionally render elements depending on the step of the form that the user is on */}
+          {formStep === 1 && (
+            <UserOptions form={form} nextStep={nextStep}/>
+          )}
 
-			<FormField
-				// control={form.control}
-				name="email"
-				render={({ field }) => (
-					<FormItem className="form-item">
-						<FormLabel>Email</FormLabel>
-						<FormControl>
-							<Input type="email" placeholder="Enter your email" {...field}
-							className="form-input"/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-					)}
-			/>
+          {/* step 2 */}
+          {formStep === 2 && (
+            <>
+            {/* role handled manually to eliminate fields confusion */}
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem className="form-item">
+                  <FormLabel className="text-base">Role</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger className="text-lg font-normal bg-white">
+                        <SelectValue placeholder="Select your role" className="text-lg"/>
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="Lecturer" className="text-lg">Lecturer</SelectItem>
+                        <SelectItem value="Student" className="text-lg">Student</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-			<FormField
-				// control={form.control}
-				name="password"
-				render={({ field }) => (
-					<FormItem className="form-item">
-						<FormLabel>Password</FormLabel>
-						<FormControl>
-							<Input type="password" placeholder="Enter your password" {...field}
-							className="form-input"/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-					)}
-			/>
-			<Button type="submit" className="mt-4 p-6 text-lg bg-sky-800">Sign up</Button>
-			</form>
-		</Form>
+            {/* get additional information depending on role */}
+            {userRole === 'Lecturer' && (
+              <LecturerOptions form={form}/>
+            )}
+
+            {userRole === 'Student' && (
+              <h2>You are a student</h2>
+            )}
+
+            <div className="flex gap-4">
+              <button
+                onClick={prevStep}
+                className="btn-pri btn-sec flex-1 mt-4">
+                  Back
+              </button>
+              <button
+                type="submit"
+                className="btn-pri flex-1 mt-4">
+                  Register
+              </button>
+            </div>
+            </>
+          )}
+        </form>
+      </Form>
 		</Card>
 	)
 }
