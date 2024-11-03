@@ -23,6 +23,8 @@ import { UserOptions, LecturerOptions, StudentOptions } from "@/components/UserF
 import { Card, CardHeader } from "@/components/ui/card";
 import { signupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
 
+import registerUser from "../utils/auth/RegisterUser";
+
 const SignupForm:React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
   const nextStep = () => setFormStep((current) => current + 1);
@@ -49,8 +51,8 @@ const SignupForm:React.FC = () => {
   const userRole = form.watch("role"); // watch for changes in the role form element
 
   // submit handler
-	const onSubmit = (values: z.infer<typeof signupFormSchema>) => {
-		console.log(values);
+	const onSubmit = (data: z.infer<typeof signupFormSchema>) => {
+    registerUser({userData: data})
 	}
 
   // update the role on change
@@ -113,7 +115,7 @@ const SignupForm:React.FC = () => {
               <button
                 type="submit"
                 className="btn-pri flex-1 mt-4">
-                  Register
+                  Sign up
               </button>
             </div>
             </>
