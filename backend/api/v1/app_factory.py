@@ -4,6 +4,7 @@
 
 from flask import Flask
 from flask_session import Session
+from flask_cors import CORS
 from backend.models.engine.storage import db
 from backend.models.user import User
 from backend.models.student import Student
@@ -13,12 +14,26 @@ from backend.models.classroom import Classroom
 from backend.models.student_classroom import StudentClassroom
 # blueprints
 from backend.routes import auth_route
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def create_app(configuration=None):
     """Creates and returns the application object"""
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///classattend.db"
+    # setup cors for all routes
+    frontend_host = os.getenv('CLIENT_ADDRESS')
+    print('frontend_host', frontend_host) # DEBUG
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": [frontend_host],
+            "methods": ['GET', 'POST', 'PUT', 'OPTIONS'],
+            "allow_headers": ['Content-Type', 'Authorization']
+        }
+    })
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI_STRING')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # configs for flask session
@@ -38,6 +53,7 @@ def create_app(configuration=None):
 
     # create the database tables
     with app.app_context():
+        # db.drop_all()
         db.create_all()
 
     # register blueprints
