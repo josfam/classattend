@@ -15,19 +15,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 
-// form schema shared among multiple interfaces
-type FormSchema = {
+// shared fields among the schemas
+type SharedSchema = {
   firstname: string;
   lastname: string;
   email: string;
-  role: "Student" | "Lecturer";
   password: string;
   passwordConfirmation: string;
+}
+
+// Lecturer-specific type
+type LecturerFormSchema = SharedSchema & {
+  role: "Lecturer";
   faculty: "Science and Technology" | "Law" | "Business and Management" | "Post Graduate Studies and Research" | "Socio-Economic Sciences";
   title: "Mr." | "Mrs." | "Ms." | "Madam" | "Professor" |"Doctor";
   staffId: string;
+}
+
+// Student-specific type
+type StudentFormSchema = SharedSchema & {
+  role: "Student";
   studentId: string;
 }
+
+// combined type for both student and lecturer schemas
+type FormSchema = LecturerFormSchema | StudentFormSchema;
 
 interface UserOptionsProps {
   form: UseFormReturn<FormSchema, undefined>;

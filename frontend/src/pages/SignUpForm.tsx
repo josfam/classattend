@@ -21,37 +21,7 @@ import {
 
 import { UserOptions, LecturerOptions, StudentOptions } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
-
-const signupFormSchema = z.object({
-	firstname: z.string()
-    .min(2, {message: "Must be longer than 2 characters"})
-    .max(50, {message: "Must be less than 50 characters"}),
-	lastname: z.string()
-    .min(2, {message: "Must be longer than 2 characters"})
-    .max(50, "Must be less than 50 characters"),
-	email: z.string()
-    .email("This is not a valid email"),
-  role: z.enum(
-    ["Student", "Lecturer"],
-    {message: "Choose either Student or Lecturer"}
-  ),
-	password: z.string(),
-  passwordConfirmation: z.string(),
-  faculty: z.enum(
-    ["Science and Technology", "Law", "Business and Management", "Post Graduate Studies and Research", "Socio-Economic Sciences"],
-    {message: "Choose at least one faculty"}
-  ),
-  title: z.enum(
-    ["Mr.", "Mrs.", "Ms.", "Madam", "Professor", "Doctor"],
-    {message: "Choose at least one title"}
-  ),
-  staffId: z.string()
-    .min(1,
-      {message: "Provide your staff id"}),
-  studentId: z.string()
-    .min(1,
-      {message: "Provide your student id"}),
-})
+import { signupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
 
 const SignupForm:React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
@@ -67,6 +37,9 @@ const SignupForm:React.FC = () => {
 			email: "",
 			password: "",
       passwordConfirmation: "",
+      role: undefined,
+      faculty: undefined,
+      title: undefined,
       staffId: "",
       studentId: "",
 		},
