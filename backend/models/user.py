@@ -4,14 +4,13 @@
 
 import enum
 from .engine.storage import db
-
+from textwrap import dedent
 
 class UserRole(enum.Enum):
     """Defines the possible roles a user can have"""
-
-    ADMIN = 'admin'
-    STUDENT = 'student'
-    LECTURER = 'lecturer'
+    ADMIN = 'Admin'
+    STUDENT = 'Student'
+    LECTURER = 'Lecturer'
 
 
 class User(db.Model):
@@ -21,7 +20,6 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(120), nullable=False)
-    middle_name = db.Column(db.String(120), nullable=True)
     last_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     role = db.Column(db.Enum(UserRole), nullable=False)
@@ -35,3 +33,7 @@ class User(db.Model):
     lecturer = db.relationship(
         'Lecturer', back_populates='user', uselist=False
     )
+
+    def __str__(self) -> str:
+        return dedent(f"""
+        [id: {self.id}] ({self.role}) {self.first_name}, {self.last_name} - {self.email}""")
