@@ -1,6 +1,9 @@
 # virtual environments
 venv-classattend/
 
+# helper scripts
+helper_scripts/
+
 # node
 node_modules/
 .nvmrc
