@@ -38,7 +38,7 @@ const LoginForm = () => {
     LoginUser({ userData: data });
   }
 
-  // show successful login toast message if state specifies it
+  // show successful login toast message from another page if stated
   useEffect(() => {
     if (location.state?.showSuccessToast) {
       const successMessage = location.state.successMessage;
@@ -74,7 +74,7 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="form-item">
               <FormLabel className="text-base">Password</FormLabel>
-              <Input {...field} placeholder="Enter your password" className="text-lg bg-white"></Input>
+              <Input {...field}  type="password" placeholder="Enter your password" className="text-lg bg-white"></Input>
               <FormMessage />
             </FormItem>
           )}
