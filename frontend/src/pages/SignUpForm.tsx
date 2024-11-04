@@ -2,6 +2,8 @@ import React, { useState, useEffect }from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 // shadcn components
 import {
@@ -29,6 +31,7 @@ const SignupForm:React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
   const nextStep = () => setFormStep((current) => current + 1);
   const prevStep = () => setFormStep((current) => current - 1);
+  const navigate = useNavigate();
 
 	// form definition
 	const form = useForm<z.infer<typeof SignupFormSchema>>({
@@ -51,8 +54,17 @@ const SignupForm:React.FC = () => {
   const userRole = form.watch("role"); // watch for changes in the role form element
 
   // submit handler
-	const onSubmit = (data: z.infer<typeof SignupFormSchema>) => {
-    signupUser({userData: data})
+	const onSubmit = async (data: z.infer<typeof SignupFormSchema>) => {
+    const response = await signupUser({userData: data});
+    if (response.success) {
+      navigate("/login", {state: {showSuccessToast: true, successMessage: response.message}});
+    } else {
+      toast.error(response.message,{
+        autoClose: 1500,
+        pauseOnFocusLoss: false,
+      })
+      console.log(response.message);
+    }
 	}
 
   // update the role on change
