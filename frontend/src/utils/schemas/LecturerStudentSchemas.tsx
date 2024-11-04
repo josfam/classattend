@@ -41,4 +41,11 @@ const StudentSchema = z.object({
 
 const SignupFormSchema = z.discriminatedUnion("role", [LecturerSchema, StudentSchema]);
 
-export { SharedSchema, LecturerSchema, StudentSchema, SignupFormSchema};
+const LoginFormSchema = z.object({
+  email: z.string().email({
+    message: "Enter a valid email"
+  }),
+  password: z.string(),
+})
+
+export { SharedSchema, LecturerSchema, StudentSchema, SignupFormSchema, LoginFormSchema };
