@@ -4,7 +4,7 @@ import { SignupFormSchema } from "../schemas/LecturerStudentSchemas";
 // using z.infer to get the actual type of the schema
 type UserDataType = z.infer<typeof SignupFormSchema>;
 
-interface registerUserProps {
+interface signupUserProps {
   userData: UserDataType;
 }
 
@@ -12,7 +12,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
 const AUTH_API_URL = import.meta.env.VITE_AUTH_API_BASE_URL;
 const api_url = `${BACKEND_URL}${AUTH_API_URL}`;
 
-const registerUser = async({ userData }: registerUserProps) => {
+const signupUser = async({ userData }: signupUserProps) => {
   console.log(`userData:`, userData);// DEBUG
   try {
     const response = await fetch(
@@ -24,14 +24,17 @@ const registerUser = async({ userData }: registerUserProps) => {
         },
         body: JSON.stringify(userData),
       }
-    ); 
+    );
+    const data = await response.json();
+
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
+      console.log(data.message);
+    } else {
+      console.log(data.message)
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-export default registerUser;
+export default signupUser;
