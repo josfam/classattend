@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { signupFormSchema } from "../schemas/LecturerStudentSchemas";
+import { SignupFormSchema } from "../schemas/LecturerStudentSchemas";
 
 // using z.infer to get the actual type of the schema
-type UserDataType = z.infer<typeof signupFormSchema>;
+type UserDataType = z.infer<typeof SignupFormSchema>;
 
 interface registerUserProps {
   userData: UserDataType;
@@ -13,7 +13,7 @@ const AUTH_API_URL = import.meta.env.VITE_AUTH_API_BASE_URL;
 const api_url = `${BACKEND_URL}${AUTH_API_URL}`;
 
 const registerUser = async({ userData }: registerUserProps) => {
-  console.log(`api url:`, api_url);// DEBUG
+  console.log(`userData:`, userData);// DEBUG
   try {
     const response = await fetch(
       `${api_url}signup`,

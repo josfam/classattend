@@ -21,7 +21,7 @@ import {
 
 import { UserOptions, LecturerOptions, StudentOptions } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
-import { signupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
+import { SignupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
 
 import registerUser from "../utils/auth/RegisterUser";
 
@@ -31,8 +31,8 @@ const SignupForm:React.FC = () => {
   const prevStep = () => setFormStep((current) => current - 1);
 
 	// form definition
-	const form = useForm<z.infer<typeof signupFormSchema>>({
-		resolver: zodResolver(signupFormSchema),
+	const form = useForm<z.infer<typeof SignupFormSchema>>({
+		resolver: zodResolver(SignupFormSchema),
 		defaultValues: {
 			firstname: "",
 			lastname: "",
@@ -51,7 +51,7 @@ const SignupForm:React.FC = () => {
   const userRole = form.watch("role"); // watch for changes in the role form element
 
   // submit handler
-	const onSubmit = (data: z.infer<typeof signupFormSchema>) => {
+	const onSubmit = (data: z.infer<typeof SignupFormSchema>) => {
     registerUser({userData: data})
 	}
 

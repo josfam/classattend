@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Role } from "./SchemaConstants";
 
-const sharedSchema = {
+const SharedSchema = {
 	firstname: z.string()
     .min(2, {message: "Must be longer than 2 characters"})
     .max(50, {message: "Must be less than 50 characters"}),
@@ -15,8 +15,8 @@ const sharedSchema = {
   role: z.enum([Role.Lecturer, Role.Student]),
 }
 
-const lecturerSchema = z.object({
-  ...sharedSchema,
+const LecturerSchema = z.object({
+  ...SharedSchema,
   faculty: z.enum(
     ["Science and Technology", "Law", "Business and Management", "Post Graduate Studies and Research", "Socio-Economic Sciences"],
     {message: "Choose at least one faculty"}
@@ -31,14 +31,14 @@ const lecturerSchema = z.object({
   role: z.literal(Role.Lecturer),
 });
 
-const studentSchema = z.object({
-  ...sharedSchema,
+const StudentSchema = z.object({
+  ...SharedSchema,
   studentId: z.string()
     .min(1,
       {message: "Provide your student id"}),
   role: z.literal(Role.Student),
 });
 
-const signupFormSchema = z.discriminatedUnion("role", [lecturerSchema, studentSchema]);
+const SignupFormSchema = z.discriminatedUnion("role", [LecturerSchema, StudentSchema]);
 
-export { sharedSchema, lecturerSchema, studentSchema, signupFormSchema};
+export { SharedSchema, LecturerSchema, StudentSchema, SignupFormSchema};
