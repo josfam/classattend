@@ -4,6 +4,7 @@ import {
 	Routes
  } from 'react-router-dom'
 import SignupForm from './pages/SignUpForm';
+import LoginForm from './pages/LoginForm';
 import 'react-toastify/dist/ReactToastify.css'; // toast styling
 import { ToastContainer } from 'react-toastify';
 
@@ -16,6 +17,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path='/' element={<SignupForm/>}/>
+          <Route path='/login' element={<LoginForm/>}/>
         </Routes>
       </Router>
     </div>
