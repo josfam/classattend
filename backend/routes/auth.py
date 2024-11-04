@@ -58,7 +58,8 @@ def login():
         return jsonify({'message': 'Account not found'}), 404
     # add user to session
     session['user_id'] = existing_user.id
-    return jsonify({'message': 'Logged in successfully'}), 200
+    role = existing_user.role.name
+    return jsonify({'message': 'Logged in successfully', 'role': role}), 200
 
 @auth_route.route('/logout', methods=['POST'], strict_slashes=False)
 def logout():
