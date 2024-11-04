@@ -86,6 +86,14 @@ const LoginForm = () => {
         </button>
       </form>
     </Form>
+    <p className="text-base flex gap-3">
+      Don't have an account? <a href="/signup"
+      className="font-semibold text-sky-600
+        hover:underline hover:underline-offset-4 
+      hover:text-sky-800 active:text-sky-900">
+        Signup
+      </a>
+    </p>
     </Card>
   )
 }

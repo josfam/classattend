@@ -134,6 +134,14 @@ const SignupForm:React.FC = () => {
           )}
         </form>
       </Form>
+      <p className="text-base flex gap-3">
+        Already have an account? <a href="/login"
+        className="font-semibold text-sky-600
+          hover:underline hover:underline-offset-4 
+        hover:text-sky-800 active:text-sky-900">
+          Login
+        </a>
+      </p>
 		</Card>
 	)
 }

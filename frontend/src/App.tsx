@@ -16,7 +16,7 @@ const App = () => {
     overflow-y-scroll'>
       <Router>
         <Routes>
-          <Route path='/' element={<SignupForm/>}/>
+          <Route path='/signup' element={<SignupForm/>}/>
           <Route path='/login' element={<LoginForm/>}/>
         </Routes>
       </Router>
