@@ -11,7 +11,6 @@ interface LoginUserProps {
 }
 
 const LoginUser = async({ userData }: LoginUserProps) => {
-  console.log('calling login func in backend'); // DEBUG
   try {
     const response = await fetch(
       `${auth_url}login`,
@@ -25,12 +24,13 @@ const LoginUser = async({ userData }: LoginUserProps) => {
     )
     const data = await response.json();
     if (response.ok) {
-      console.log(data.message);
+      return {success: true, data: data};
     } else {
-      console.log(data.message);
+      return {success: false, message: data.message};
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return {success: false, message: "There was an error during login. Please try again"};
   }
 }
 
