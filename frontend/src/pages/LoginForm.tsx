@@ -12,10 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader } from "@/components/ui/card";
 import { LoginFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
-import LoginUser from "@/utils/auth/LoginUser";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Role } from "@/utils/schemas/SchemaConstants";
+import LoginUser from "@/utils/auth/LoginUser";
+import useUserStore from "@/store/userStore"; // zustand store
 
 /**
  * Returns a login form
@@ -24,6 +26,7 @@ import { toast } from "react-toastify";
 const LoginForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { setRole } = useUserStore();
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -34,8 +37,26 @@ const LoginForm = () => {
   })
 
   // submit handler
-  const onSubmit = (data: z.infer<typeof LoginFormSchema>) => {
-    LoginUser({ userData: data });
+  const onSubmit = async(data: z.infer<typeof LoginFormSchema>) => {
+    try {
+      const response = await LoginUser({ userData: data });
+      console.log(response.data);
+      const role = response.data.role;
+      if (response.success) {
+        // update zustand role state
+        setRole(role);
+        // redirect based on role
+        if (role === Role.Student) {
+          navigate('/lecturer-dashboard')
+        } else if (role === Role.Lecturer) {
+          navigate('/student-dashboard')
+        }
+      } else {
+        console.log(response.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // show successful login toast message from another page if stated
