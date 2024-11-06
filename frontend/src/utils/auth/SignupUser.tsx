@@ -12,19 +12,16 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
 const AUTH_API_URL = import.meta.env.VITE_AUTH_API_BASE_URL;
 const api_url = `${BACKEND_URL}${AUTH_API_URL}`;
 
-const signupUser = async({ userData }: signupUserProps) => {
-  console.log(`userData:`, userData);// DEBUG
+const signupUser = async ({ userData }: signupUserProps) => {
+  console.log(`userData:`, userData); // DEBUG
   try {
-    const response = await fetch(
-      `${api_url}signup`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      }
-    );
+    const response = await fetch(`${api_url}signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
     const data = await response.json();
 
     if (response.ok) {
@@ -33,9 +30,12 @@ const signupUser = async({ userData }: signupUserProps) => {
       return { success: false, message: data.message };
     }
   } catch (error) {
-    console.error(error)
-    return { success: false, message: "There was an error signing up. Please try again" };
+    console.error(error);
+    return {
+      success: false,
+      message: "There was an error signing up. Please try again",
+    };
   }
-}
+};
 
 export default signupUser;
