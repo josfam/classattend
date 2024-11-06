@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <Toaster richColors position="top-center" /> {/* toast messages */}
-      <div className="app-content flex h-full w-full items-center overflow-y-scroll bg-neutral-50 p-8 first-letter:justify-center">
+      <div className="app-content flex h-full w-full items-center justify-center overflow-y-scroll bg-neutral-50 p-8">
         <Router>
           <Routes>
             {/* public routes */}
