@@ -1,20 +1,16 @@
 .form-input {
-	@apply text-2xl pt-2 h-fit border border-slate-300
+  @apply h-fit border border-slate-300 pt-2 text-2xl;
 }
 
 .form-item {
-	@apply flex flex-col items-start flex-grow
+  @apply flex flex-grow flex-col items-start;
 }
 
 /* buttons */
 .btn-pri {
-	@apply flex w-full h-12 items-center justify-center mt-0 text-lg text-white bg-sky-700
-	hover:bg-sky-800
-	active:bg-sky-900
+  @apply mt-0 flex h-12 w-full items-center justify-center bg-sky-700 text-lg text-white hover:bg-sky-800 active:bg-sky-900;
 }
 
 .btn-sec {
-	@apply text-sky-700 bg-transparent border border-sky-700
-	hover:bg-sky-700 hover:text-white
-	active:bg-sky-900 active:text-white
+  @apply border border-sky-700 bg-transparent text-sky-700 hover:bg-sky-700 hover:text-white active:bg-sky-900 active:text-white;
 }
