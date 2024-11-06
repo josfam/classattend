@@ -12,10 +12,10 @@ from backend.models.admin import Admin
 from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
 from backend.models.student_classroom import StudentClassroom
-# blueprints
-from backend.routes import auth_route
+from .routes import auth_route
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
 
 load_dotenv()
 
@@ -26,13 +26,17 @@ def create_app(configuration=None):
     # setup cors for all routes
     frontend_host = os.getenv('CLIENT_ADDRESS')
     print('frontend_host', frontend_host) # DEBUG
-    CORS(app, resources={
-        r"/api/*": {
-            "origins": [frontend_host],
-            "methods": ['GET', 'POST', 'PUT', 'OPTIONS'],
-            "allow_headers": ['Content-Type', 'Authorization']
-        }
-    })
+    CORS(
+        app,
+        resources={
+            r"/api/*": {
+                "origins": [frontend_host],
+                "methods": ['GET', 'POST', 'PUT', 'OPTIONS'],
+                "allow_headers": ['Content-Type', 'Authorization']
+            }
+        },
+        supports_credentials=True,
+    )
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI_STRING')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -40,8 +44,10 @@ def create_app(configuration=None):
     app.config['SESSION_TYPE'] = 'sqlalchemy'
     app.config['SESSION_SQLALCHEMY'] = db
     # app.config['SESSION_USE_SIGNER'] = True # sign the cookie for security
-    app.config['SESSION_PERMANENT'] = True # sessions are cleared on explicit logout or after expiration
-
+    app.config['SESSION_PERMANENT'] = False # sessions are temporary
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None' # separate domain for frontend and backend
+    app.config['SESSION_COOKIE_SECURE'] = 'False' # False for dev
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=80)
 
     # apply the configuration if it exists
     if configuration:
