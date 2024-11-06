@@ -28,7 +28,7 @@ const App = () => {
             <Route index element={<StudentHome/>}></Route>
           </Route>
 
-          {/* student-specific routes */}
+          {/* lecturer-specific routes */}
           <Route path='/lecturer/*'>
             <Route index element={<LecturerHome/>}></Route>
           </Route>
