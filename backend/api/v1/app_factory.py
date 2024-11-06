@@ -20,20 +20,21 @@ from .config import DevelopmentConfig, ProductionConfig
 
 load_dotenv()
 
+
 def create_app():
     """Creates and returns the application object"""
     app = Flask(__name__)
 
     # setup cors for all routes
     frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
-    print('frontend_host', frontend_host) # DEBUG
+    print('frontend_host', frontend_host)  # DEBUG
     CORS(
         app,
         resources={
             r"/api/*": {
                 "origins": [frontend_host],
                 "methods": ['GET', 'POST', 'PUT', 'OPTIONS'],
-                "allow_headers": ['Content-Type', 'Authorization']
+                "allow_headers": ['Content-Type', 'Authorization'],
             }
         },
         supports_credentials=True,

@@ -6,8 +6,10 @@ import enum
 from .engine.storage import db
 from textwrap import dedent
 
+
 class UserRole(enum.Enum):
     """Defines the possible roles a user can have"""
+
     ADMIN = 'Admin'
     STUDENT = 'Student'
     LECTURER = 'Lecturer'
@@ -35,5 +37,7 @@ class User(db.Model):
     )
 
     def __str__(self) -> str:
-        return dedent(f"""
-        [id: {self.id}] ({self.role}) {self.first_name}, {self.last_name} - {self.email}""")
+        return dedent(
+            f"""
+        [id: {self.id}] ({self.role}) {self.first_name}, {self.last_name} - {self.email}"""
+        )
