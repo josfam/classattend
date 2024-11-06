@@ -1,6 +1,6 @@
 import bcrypt
 from flask import session, request, jsonify
-from backend.routes import auth_route
+from . import auth_route
 from backend.models.engine.storage import db
 from backend.models.user import User, UserRole
 from backend.models.lecturer import Lecturer
@@ -59,6 +59,7 @@ def login():
     # add user to session
     session['user_id'] = existing_user.id
     role = existing_user.role.name
+    session['user_role'] = role
     return jsonify({'message': 'Logged in successfully', 'role': role}), 200
 
 @auth_route.route('/logout', methods=['POST'], strict_slashes=False)
