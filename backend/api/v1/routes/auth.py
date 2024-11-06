@@ -54,11 +54,12 @@ def login():
 
     # check if user exists
     existing_user = User.query.filter_by(email=email).first()
+
     if not existing_user:
-        return jsonify({'message': 'Account not found'}), 404
+        return jsonify({'message': 'Account not found'}), 401
     # add user to session
     session['user_id'] = existing_user.id
-    role = existing_user.role.name
+    role = existing_user.role.name.title()
     session['user_role'] = role
     return jsonify({'message': 'Logged in successfully', 'role': role}), 200
 
