@@ -6,8 +6,9 @@ import {
 import { Toaster } from 'sonner';
 import SignupForm from './pages/SignUpForm';
 import LoginForm from './pages/LoginForm';
-import 'react-toastify/dist/ReactToastify.css'; // toast styling
-import { ToastContainer } from 'react-toastify';
+import HomePage from './pages/HomePage';
+import StudentHome from './roles/layouts/student/pages/StudentHome';
+import LecturerHome from './roles/layouts/lecturer/pages/LecturerHome';
 
 const App = () => {
   return (
@@ -17,8 +18,20 @@ const App = () => {
     overflow-y-scroll'>
       <Router>
         <Routes>
+          {/* public routes */}
+          <Route index element={<HomePage/>}/>
           <Route path='/signup' element={<SignupForm/>}/>
           <Route path='/login' element={<LoginForm/>}/>
+
+          {/* student-specific routes */}
+          <Route path='/student/*'>
+            <Route index element={<StudentHome/>}></Route>
+          </Route>
+
+          {/* student-specific routes */}
+          <Route path='/lecturer/*'>
+            <Route index element={<LecturerHome/>}></Route>
+          </Route>
         </Routes>
       </Router>
     </div>

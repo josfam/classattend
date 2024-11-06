@@ -14,7 +14,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { LoginFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { Role } from "@/utils/schemas/SchemaConstants";
 import LoginUser from "@/utils/auth/LoginUser";
 import useUserStore from "@/store/userStore"; // zustand store
@@ -45,9 +45,9 @@ const LoginForm = () => {
         setRole(role);
         // redirect based on role
         if (role === Role.Student) {
-          navigate('/lecturer-dashboard')
+          navigate('/student/')
         } else if (role === Role.Lecturer) {
-          navigate('/student-dashboard')
+          navigate('/lecturer/')
         }
       } else {
         toast.error(response.message);
