@@ -22,7 +22,7 @@ class DevelopmentConfig(BaseConfig):
     """Configuration for the development environment"""
     SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URI_STRING')
     # flask session
-    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = True;
     # cors
     SESSION_COOKIE_SAMESITE = 'None' # separate domain for frontend and backend
 
