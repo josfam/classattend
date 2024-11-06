@@ -3,7 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 // shadcn components
 import {
@@ -59,10 +59,7 @@ const SignupForm:React.FC = () => {
     if (response.success) {
       navigate("/login", {state: {showSuccessToast: true, successMessage: response.message}});
     } else {
-      toast.error(response.message,{
-        autoClose: 1500,
-        pauseOnFocusLoss: false,
-      })
+      toast.error(response.message);
       console.log(response.message);
     }
 	}

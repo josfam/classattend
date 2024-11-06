@@ -3,6 +3,7 @@ import {
 	Route,
 	Routes
  } from 'react-router-dom'
+import { Toaster } from 'sonner';
 import SignupForm from './pages/SignUpForm';
 import LoginForm from './pages/LoginForm';
 import 'react-toastify/dist/ReactToastify.css'; // toast styling
@@ -11,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 const App = () => {
   return (
   <>
-    <ToastContainer></ToastContainer> {/* toast messages */}
+    <Toaster richColors position='top-center'/> {/* toast messages */}
     <div className='app-content w-full h-full p-8 flex items-center justify-center bg-neutral-50
     overflow-y-scroll'>
       <Router>

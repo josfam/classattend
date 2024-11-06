@@ -40,10 +40,8 @@ const LoginForm = () => {
   const onSubmit = async(data: z.infer<typeof LoginFormSchema>) => {
     try {
       const response = await LoginUser({ userData: data });
-      console.log(response.data);
-      const role = response.data.role;
       if (response.success) {
-        // update zustand role state
+        const role = response.data.role;
         setRole(role);
         // redirect based on role
         if (role === Role.Student) {
@@ -52,10 +50,12 @@ const LoginForm = () => {
           navigate('/student-dashboard')
         }
       } else {
-        console.log(response.message);
+        toast.error(response.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("There was an error during login. Please try again", {
+        position: "top-right",});
     }
   }
 
