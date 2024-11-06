@@ -1,14 +1,14 @@
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
-	Form,
-	FormField,
-	FormLabel,
-	FormItem,
-	FormMessage,
-} from "@/components/ui/form"
+  Form,
+  FormField,
+  FormLabel,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader } from "@/components/ui/card";
 import { LoginFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
@@ -33,11 +33,11 @@ const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
-    }
-  })
+    },
+  });
 
   // submit handler
-  const onSubmit = async(data: z.infer<typeof LoginFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
     try {
       const response = await LoginUser({ userData: data });
       if (response.success) {
@@ -45,9 +45,9 @@ const LoginForm = () => {
         setRole(role);
         // redirect based on role
         if (role === Role.Student) {
-          navigate('/student/')
+          navigate("/student/");
         } else if (role === Role.Lecturer) {
-          navigate('/lecturer/')
+          navigate("/lecturer/");
         }
       } else {
         toast.error(response.message);
@@ -55,9 +55,10 @@ const LoginForm = () => {
     } catch (error) {
       console.error(error);
       toast.error("There was an error during login. Please try again", {
-        position: "top-right",});
+        position: "top-right",
+      });
     }
-  }
+  };
 
   // show successful login toast message from another page if stated
   useEffect(() => {
@@ -66,57 +67,67 @@ const LoginForm = () => {
       toast.success(successMessage);
 
       // clear success message toast
-      navigate(location.pathname, {replace: true});
+      navigate(location.pathname, { replace: true });
     }
-  }, [location, navigate])
+  }, [location, navigate]);
 
   return (
-    <Card className="w-1/2 pb-8 h-fit flex flex-col items-center justify-center
-    bg-slate-100 border shadow-lg shadow-slate-300">
-      <CardHeader className="bg-slate-300 w-full rounded-t-lg text-xl font-medium p-4 mb-4 text-slate-600">
-      <h1 className="text-xl">Login</h1>
+    <Card className="flex h-fit w-1/2 flex-col items-center justify-center border bg-slate-100 pb-8 shadow-lg shadow-slate-300">
+      <CardHeader className="mb-4 w-full rounded-t-lg bg-slate-300 p-4 text-xl font-medium text-slate-600">
+        <h1 className="text-xl">Login</h1>
       </CardHeader>
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full py-4 px-10 flex flex-col gap-6">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="form-item">
-              <FormLabel className="text-base">Email</FormLabel>
-              <Input {...field} placeholder="Enter your email" className="text-lg bg-white"></Input>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="form-item">
-              <FormLabel className="text-base">Password</FormLabel>
-              <Input {...field}  type="password" placeholder="Enter your password" className="text-lg bg-white"></Input>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <button
-          type="submit"
-          className="btn-pri flex-1 mt-4">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex h-full w-full flex-col gap-6 px-10 py-4"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="form-item">
+                <FormLabel className="text-base">Email</FormLabel>
+                <Input
+                  {...field}
+                  placeholder="Enter your email"
+                  className="bg-white text-lg"
+                ></Input>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="form-item">
+                <FormLabel className="text-base">Password</FormLabel>
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="Enter your password"
+                  className="bg-white text-lg"
+                ></Input>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <button type="submit" className="btn-pri mt-4 flex-1">
             Login
-        </button>
-      </form>
-    </Form>
-    <p className="text-base flex gap-3">
-      Don't have an account? <a href="/signup"
-      className="font-semibold text-sky-600
-        hover:underline hover:underline-offset-4 
-      hover:text-sky-800 active:text-sky-900">
-        Signup
-      </a>
-    </p>
+          </button>
+        </form>
+      </Form>
+      <p className="flex gap-3 text-base">
+        Don't have an account?{" "}
+        <a
+          href="/signup"
+          className="font-semibold text-sky-600 hover:text-sky-800 hover:underline hover:underline-offset-4 active:text-sky-900"
+        >
+          Signup
+        </a>
+      </p>
     </Card>
-  )
-}
+  );
+};
 
 export default LoginForm;
