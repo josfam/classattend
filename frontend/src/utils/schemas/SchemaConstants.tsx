@@ -1,6 +1,7 @@
 // Defining an enum for the roles
-export const Role = {
+const Role = {
   Lecturer: "Lecturer",
   Student: "Student"
 } as const;
 
+export { Role };
