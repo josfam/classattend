@@ -9,19 +9,15 @@ const HomePage = () => {
     <div className="flex flex-col gap-12">
       <h1 className="text-4xl">👋 Welcome to classattend</h1>
       <div className="flex flex-col gap-4">
-        <button className="btn-pri"
-          onClick={() => navigate('/signup')}
-          >
+        <button className="btn-pri" onClick={() => navigate("/signup")}>
           SignUp
         </button>
-        <button className="btn-pri"
-          onClick={() => navigate('/login')}
-          >
+        <button className="btn-pri" onClick={() => navigate("/login")}>
           Login
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default HomePage;
