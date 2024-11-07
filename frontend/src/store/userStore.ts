@@ -3,6 +3,7 @@
  */
 
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { Role } from "@/utils/schemas/SchemaConstants";
 
 // role type definition, as a union of the enum values
@@ -16,10 +17,17 @@ interface UserStore {
 }
 
 // zustand store creation
-const useUserStore = create<UserStore>((set) => ({
-  role: null, // starts as null initially
-  setRole: (newRole) => set({ role: newRole }),
-  clearRole: () => set({ role: null }),
-}));
+const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      role: null, // starts as null initially
+      setRole: (newRole) => set({ role: newRole }),
+      clearRole: () => set({ role: null }),
+    }),
+    {
+      name: "user-store", // name of the key in localStorage
+    },
+  ),
+);
 
 export default useUserStore;
