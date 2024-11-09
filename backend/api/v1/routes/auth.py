@@ -76,7 +76,8 @@ def login():
 @auth_route.route('/logout', methods=['POST'], strict_slashes=False)
 def logout():
     """Logs a user out of the application"""
-    pass
+    session.clear()
+    return jsonify({"message": "Logged out successfully"}), 200
 
 
 def hash_password(password: str):
