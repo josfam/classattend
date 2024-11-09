@@ -63,7 +63,7 @@ const LoginForm = () => {
   // show successful login toast message from another page if stated
   useEffect(() => {
     if (location.state?.showSuccessToast) {
-      const successMessage = location.state.successMessage;
+      const successMessage = location.state.message;
       toast.success(successMessage);
 
       // clear success message toast
