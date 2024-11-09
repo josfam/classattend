@@ -10,7 +10,7 @@ This is also my class project for the Distributed Systems class (BIT 322) at Cav
 - [Technologies used](#technologies-used)
   - [Backend](#backend)
   - [Frontend](#frontend)
-- [How ](#how-to-run-the-application-unix-systems-ie-linux-and-mac)
+- [How to run the application (unix)](#how-to-run-the-application-unix-systems-ie-linux-and-mac)
 
 ## Technologies used
 
