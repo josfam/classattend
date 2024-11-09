@@ -8,6 +8,7 @@ import StudentLayout from "./roles/layouts/student/StudentLayout";
 import LecturerHome from "./roles/layouts/lecturer/pages/LecturerHome";
 import MainLayout from "./roles/layouts/MainLayout";
 import LecturerLayout from "./roles/layouts/lecturer/LecturerLayout";
+import { loginPath, signupPath } from "./utils/urlPaths/appUrlPaths";
 
 const App = () => {
   return (
@@ -19,8 +20,8 @@ const App = () => {
           {/* public routes */}
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path={`${signupPath}`} element={<SignupForm />} />
+            <Route path={`${loginPath}`} element={<LoginForm />} />
           </Route>
 
           {/* student-specific routes */}

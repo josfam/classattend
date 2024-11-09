@@ -28,7 +28,7 @@ import {
 } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
 import { SignupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
-
+import { loginPath } from "@/utils/urlPaths/appUrlPaths";
 import signupUser from "../utils/auth/SignupUser";
 
 const SignupForm: React.FC = () => {
@@ -61,8 +61,8 @@ const SignupForm: React.FC = () => {
   const onSubmit = async (data: z.infer<typeof SignupFormSchema>) => {
     const response = await signupUser({ userData: data });
     if (response.success) {
-      navigate("/login", {
-        state: { showSuccessToast: true, successMessage: response.message },
+      navigate(`${loginPath}`, {
+        state: { showSuccessToast: true, message: response.message },
       });
     } else {
       toast.error(response.message);
@@ -145,7 +145,7 @@ const SignupForm: React.FC = () => {
       <p className="flex gap-3 text-base">
         Already have an account?{" "}
         <a
-          href="/login"
+          href={`${loginPath}`}
           className="font-semibold text-sky-600 hover:text-sky-800 hover:underline hover:underline-offset-4 active:text-sky-900"
         >
           Login
