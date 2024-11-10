@@ -1,14 +1,13 @@
 import { auth_url } from "./AuthConstants";
 import { NavigateFunction } from "react-router-dom";
 import { loginPath } from "../urlPaths/appUrlPaths";
-import useUserStore from "@/store/userStore";
 
 interface LogoutUserProps {
   navigate: NavigateFunction;
+  clearRole: () => void;
 }
 
-const LogoutUser = ({ navigate }: LogoutUserProps) => {
-  const clearRole = useUserStore((state) => state.clearRole);
+const LogoutUser = ({ navigate, clearRole }: LogoutUserProps) => {
   const handleLogout = async () => {
     try {
       const response = await fetch(`${auth_url}logout`, {
