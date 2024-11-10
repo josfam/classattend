@@ -1,5 +1,5 @@
 import { BiLogOut } from "react-icons/bi";
-import SideBarBtn from "../../base/components/SidebarBtn";
+import SideBarBtn from "../../base/components/buttons/SidebarBtn";
 
 const LecturerSidebar = () => {
   return (
