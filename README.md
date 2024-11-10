@@ -9,8 +9,8 @@ This is also my class project for the Distributed Systems class (BIT 322) at Cav
 
 - [Project background](#project-background)
 - [Technologies used](#technologies-used)
-  - [Backend](#backend)
   - [Frontend](#frontend)
+  - [Backend](#backend)
 - [How to run the application](#how-to-run-the-application)
   - [For Unix (Linux & Mac)](#for-unix-linux--mac)
   - [For Windows](#for-windows)
