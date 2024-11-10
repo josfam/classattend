@@ -18,7 +18,7 @@ This is also my class project for the Distributed Systems class (BIT 322) at Cav
 
 ![Frontend tools](./docs/readme/images/frontend.png)
 
-In the frontend, I used:
+On the frontend, I currently use:
 
 - [React](https://react.dev/)
 - [Tailwind](https://react.dev/) for css styles
@@ -26,6 +26,13 @@ In the frontend, I used:
 - [zustand](https://zustand.docs.pmnd.rs/getting-started/introduction) for application state
 
 ## Backend
+
+![Backend](./docs/readme/images/backend.png)
+
+On the backend, I currently use:
+
+- [Flask](https://flask.palletsprojects.com/en/stable/) for  the application server
+- [FlaskSQLAlchemy](https://flask-sqlalchemy.readthedocs.io/en/stable/), that uses [SQLAlchemy](https://www.sqlalchemy.org/) to communicate with a small [SQLite3](https://www.sqlite.org/index.html) database
 
 ## How to run the application (unix systems i.e. Linux and Mac)
 
