@@ -97,13 +97,13 @@ npm install
     python3 -m backend.api.v1.app
     ```
 
-  - Open a new terminal, navigate back to the frontend directory of the repository, and start the frontend
+  - Open a new terminal, navigate to the frontend directory of the repository, and start the frontend
 
     ```sh
     npm run dev
     ```
 
-    - Copy and paste the url displayed in the frontend terminal in a browser. It should look something like this:
+  - Copy and paste the url displayed in the frontend terminal in a browser. It should look something like this:
 
     ```sh
     http://localhost:5173/
