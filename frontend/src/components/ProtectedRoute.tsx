@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useUserStore from "@/store/userStore";
-import { toast } from "sonner";
+import UnauthorizedPage from "@/pages/errorPages/Unauthorized";
+import { redirectDuration } from "@/utils/errors/errorConstants";
 
 interface ProtectedRouteProps {
   allowedRoles: string[];
@@ -9,16 +10,21 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
   const role = useUserStore((state) => state.role);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!role || !allowedRoles.includes(role)) {
-      toast.error("You are not allowed to view that page");
+      const timer = setTimeout(() => {
+        navigate(-1);
+      }, redirectDuration);
+
+      return () => clearTimeout(timer);
     }
-  }, [role, allowedRoles]);
+  }, [role, allowedRoles, navigate]);
 
   // Do not render protected content
   if (!role || !allowedRoles.includes(role)) {
-    return null;
+    return <UnauthorizedPage />;
   }
 
   return <Outlet />;
