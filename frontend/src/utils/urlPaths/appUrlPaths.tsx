@@ -1,5 +1,5 @@
 const loginPath = "/login";
 const signupPath = "/signup";
+const classroomsPath = "classrooms/";
 
-export { loginPath, signupPath };
-
+export { loginPath, signupPath, classroomsPath };
