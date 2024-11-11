@@ -66,6 +66,9 @@ def login():
 
     if not existing_user:
         return jsonify({'message': 'Account not found'}), 401
+    hashed_password = existing_user.password_hash
+    if not passwords_match(password, hashed_password=hashed_password):
+        return jsonify({'message': 'Email or password is incorrect'}), 401
     # add user to session
     session['user_id'] = existing_user.id
     role = existing_user.role.name.title()
@@ -89,8 +92,8 @@ def hash_password(password: str):
 
 def passwords_match(password: str, hashed_password: str):
     """Returns True if the password provided matches one that is stored (hash-wise)"""
-    hashed_pwd = hash_password(password)
-    return bcrypt.checkpw(password, hashed_password)
+    computed_hashed_pwd = hash_password(password)
+    return bcrypt.checkpw(password.encode(), hashed_password)
 
 
 def add_lecturer(title='', staff_id='', faculty='', user_id=0):
