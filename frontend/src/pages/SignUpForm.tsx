@@ -33,6 +33,7 @@ import signupUser from "../utils/auth/SignupUser";
 
 const SignupForm: React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
   const nextStep = () => setFormStep((current) => current + 1);
   const prevStep = () => setFormStep((current) => current - 1);
   const navigate = useNavigate();
@@ -56,9 +57,15 @@ const SignupForm: React.FC = () => {
   });
 
   const userRole = form.watch("role"); // watch for changes in the role form element
+  const password = form.watch("password");
+  const passwordConfirmation = form.watch("passwordConfirmation");
 
   // submit handler
   const onSubmit = async (data: z.infer<typeof SignupFormSchema>) => {
+    if (!passwordsMatch) {
+      toast.error("Make sure passwords match before signing up");
+      return;
+    }
     const response = await signupUser({ userData: data });
     if (response.success) {
       navigate(`${loginPath}`, {
@@ -75,6 +82,15 @@ const SignupForm: React.FC = () => {
     console.log(`Role: ${userRole} selected`);
   }, [userRole]);
 
+  // check for password matching
+  useEffect(() => {
+    if (password.length > 0 || passwordConfirmation.length > 0) {
+      setPasswordsMatch(password === passwordConfirmation);
+    } else {
+      setPasswordsMatch(true);
+    }
+  }, [password, passwordConfirmation]);
+
   return (
     <Card className="flex h-fit w-1/2 flex-col items-center justify-center border bg-slate-100 pb-8 shadow-lg shadow-slate-300">
       <CardHeader className="mb-4 w-full rounded-t-lg bg-slate-300 p-4 text-xl font-medium text-slate-600">
@@ -86,7 +102,13 @@ const SignupForm: React.FC = () => {
           className="flex h-full w-full flex-col gap-6 px-10 py-4"
         >
           {/* conditionally render elements depending on the step of the form that the user is on */}
-          {formStep === 1 && <UserOptions form={form} nextStep={nextStep} />}
+          {formStep === 1 && (
+            <UserOptions
+              form={form}
+              nextStep={nextStep}
+              passwordsMatch={passwordsMatch}
+            />
+          )}
 
           {/* step 2 */}
           {formStep === 2 && (

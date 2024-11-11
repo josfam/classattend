@@ -49,6 +49,7 @@ type FormSchema = LecturerFormSchema | StudentFormSchema;
 interface UserOptionsProps {
   form: UseFormReturn<FormSchema, undefined>;
   nextStep: () => void;
+  passwordsMatch: boolean;
 }
 
 interface LecturerOptionsProps {
@@ -59,7 +60,7 @@ interface StudentOptionsProps {
   form: UseFormReturn<FormSchema, undefined>;
 }
 
-const UserOptions = ({ form, nextStep }: UserOptionsProps) => {
+const UserOptions = ({ form, nextStep, passwordsMatch }: UserOptionsProps) => {
   return (
     <>
       <div className="flex gap-4">
@@ -134,10 +135,12 @@ const UserOptions = ({ form, nextStep }: UserOptionsProps) => {
                 type="password"
                 placeholder="Enter a password"
                 {...field}
-                className="bg-white text-lg"
+                className={`bg-white text-lg ${!passwordsMatch ? "border-2 border-red-400" : ""}`}
               />
             </FormControl>
-            <FormMessage />
+            {!passwordsMatch && (
+              <FormMessage>Passwords do not match</FormMessage>
+            )}
           </FormItem>
         )}
       />
@@ -154,10 +157,12 @@ const UserOptions = ({ form, nextStep }: UserOptionsProps) => {
                 type="password"
                 placeholder="Re-type your password"
                 {...field}
-                className="bg-white text-lg"
+                className={`bg-white text-lg ${!passwordsMatch ? "border-2 border-red-400" : ""}`}
               />
             </FormControl>
-            <FormMessage />
+            {!passwordsMatch && (
+              <FormMessage>Passwords do not match</FormMessage>
+            )}
           </FormItem>
         )}
       />
