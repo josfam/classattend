@@ -13,6 +13,7 @@ from backend.models.admin import Admin
 from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
 from backend.models.student_classroom import StudentClassroom
+from backend.models.pending_student import PendingStudent
 from .routes import auth_route
 from dotenv import load_dotenv
 from datetime import timedelta
