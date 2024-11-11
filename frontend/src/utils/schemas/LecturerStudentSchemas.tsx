@@ -45,7 +45,8 @@ const LoginFormSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email"
   }),
-  password: z.string(),
+  password: z.string()
+  .min(1, {message: "A password is required"}),
 })
 
 export { SharedSchema, LecturerSchema, StudentSchema, SignupFormSchema, LoginFormSchema };
