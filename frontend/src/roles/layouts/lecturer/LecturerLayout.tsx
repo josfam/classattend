@@ -9,7 +9,7 @@ const LecturerLayout = () => {
       {/* Sidebar */}
       <LecturerSidebar />
       {/* Main content area */}
-      <main className="flex h-screen w-full flex-col items-center justify-center overflow-y-scroll px-8 bg-sky-50">
+      <main className="flex h-screen w-full flex-col items-center justify-center overflow-y-scroll px-8 bg-white">
         <Outlet /> {/* Rendering nested routes */}
       </main>
     </div>
