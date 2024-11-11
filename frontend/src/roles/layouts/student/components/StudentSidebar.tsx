@@ -4,7 +4,9 @@ const StudentSidebar = () => {
   return (
     <nav className="flex h-screen w-48 flex-col overflow-hidden bg-sky-700">
       {/* buttons */}
-      <LogoutBtn />
+      <div className="mt-auto">
+        <LogoutBtn />
+      </div>
     </nav>
   );
 };
