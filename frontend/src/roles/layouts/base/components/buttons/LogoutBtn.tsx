@@ -9,13 +9,11 @@ const LogoutBtn = () => {
   const clearRole = useUserStore((state) => state.clearRole);
 
   return (
-    <div id="bottom-nav" className="mt-auto">
-      <SideBarBtn
-        text="Logout"
-        Icon={BiLogOut}
-        onClick={() => LogoutUser({ navigate, clearRole })}
-      />
-    </div>
+    <SideBarBtn
+      text="Logout"
+      Icon={BiLogOut}
+      onClick={() => LogoutUser({ navigate, clearRole })}
+    />
   );
 };
 
