@@ -9,6 +9,8 @@ import LecturerHome from "./roles/layouts/lecturer/pages/LecturerHome";
 import MainLayout from "./roles/layouts/MainLayout";
 import LecturerLayout from "./roles/layouts/lecturer/LecturerLayout";
 import { loginPath, signupPath } from "./utils/urlPaths/appUrlPaths";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { Role } from "./utils/schemas/SchemaConstants";
 
 const App = () => {
   return (
@@ -24,19 +26,22 @@ const App = () => {
             <Route path={`${loginPath}`} element={<LoginForm />} />
           </Route>
 
-          {/* student-specific routes */}
-          <Route path="/student/*" element={<StudentLayout />}>
-            {/* nested routes for Outlet */}
-            <Route index element={<StudentHome />} />
+          {/* protected student-specific routes */}
+          <Route element={<ProtectedRoute allowedRoles={[Role.Student]} />}>
+            <Route path="/student/*" element={<StudentLayout />}>
+              {/* nested routes for Outlet */}
+              <Route index element={<StudentHome />} />
+            </Route>
           </Route>
 
-          {/* lecturer-specific routes */}
-          <Route path="/lecturer/*" element={<LecturerLayout />}>
-            <Route index element={<LecturerHome />}></Route>
+          {/* protected lecturer-specific routes */}
+          <Route element={<ProtectedRoute allowedRoles={[Role.Lecturer]} />}>
+            <Route path="/lecturer/*" element={<LecturerLayout />}>
+              <Route index element={<LecturerHome />}></Route>
+            </Route>
           </Route>
         </Routes>
       </Router>
-      {/* </div> */}
     </>
   );
 };
