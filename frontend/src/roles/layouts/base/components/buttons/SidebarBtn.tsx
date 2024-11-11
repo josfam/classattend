@@ -10,9 +10,9 @@ const SideBarBtn = ({ text, Icon, ...props }: SideBarBtnProps) => {
   return (
     <button
       {...props}
-      className="btn-pri border-t-w-3 border-t-1 flex h-14 flex-row items-center justify-center gap-6 rounded-none border-t-sky-500 bg-sky-700 text-lg"
+      className="btn-pri h-14 justify-start gap-3 rounded-none bg-sky-700"
     >
-      <div className="h-6 w-6">{Icon && <Icon className="text-2xl" />}</div>
+      <div>{Icon && <Icon className="text-3xl" />}</div>
       {text}
     </button>
   );
