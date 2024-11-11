@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Role } from "./SchemaConstants";
 
-const SharedSchema = {
+const SharedSchema = z.object({
   firstname: z
     .string()
     .min(2, { message: "Must be longer than 2 characters" })
@@ -14,10 +14,9 @@ const SharedSchema = {
   password: z.string(),
   passwordConfirmation: z.string(),
   role: z.enum([Role.Lecturer, Role.Student]),
-};
+});
 
-const LecturerSchema = z.object({
-  ...SharedSchema,
+const LecturerSchema = SharedSchema.extend({
   faculty: z.enum(
     [
       "Science and Technology",
@@ -35,8 +34,7 @@ const LecturerSchema = z.object({
   role: z.literal(Role.Lecturer),
 });
 
-const StudentSchema = z.object({
-  ...SharedSchema,
+const StudentSchema = SharedSchema.extend({
   studentId: z.string().min(1, { message: "Provide your student id" }),
   role: z.literal(Role.Student),
 });
