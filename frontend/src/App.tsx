@@ -20,6 +20,7 @@ import {
 } from "./utils/urlPaths/appUrlPaths";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Role } from "./utils/schemas/SchemaConstants";
+import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
 
 const App = () => {
   return (
@@ -53,6 +54,10 @@ const App = () => {
               <Route
                 path={`${classroomsPath}`}
                 element={<LecturerClassrooms />}
+              ></Route>
+              <Route
+                path={`${classroomsPath}/add`}
+                element={<AddClassroom />}
               ></Route>
             </Route>
           </Route>
