@@ -1,9 +1,16 @@
+/**
+ * Customized sonner toast messages
+ */
+
 import { toast } from "sonner";
 
 interface ToastProps {
   message: string;
 }
 
+/**
+ * Customized success sonner toast
+ */
 const SuccessToast = ({ message }: ToastProps) => {
   return toast.success(message, {
     classNames: {
@@ -16,6 +23,9 @@ const SuccessToast = ({ message }: ToastProps) => {
   });
 };
 
+/**
+ * Customized error sonner toast
+ */
 const ErrorToast = ({ message }: ToastProps) => {
   return toast.error(message, {
     classNames: {
