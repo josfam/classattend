@@ -20,12 +20,21 @@ import {
 } from "./utils/urlPaths/appUrlPaths";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Role } from "./utils/schemas/SchemaConstants";
+import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
 import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
 
 const App = () => {
   return (
     <>
-      <Toaster richColors position="top-center" /> {/* toast messages */}
+      <Toaster
+        richColors
+        position="top-center"
+        icons={{
+          error: <AiFillExclamationCircle />,
+          success: <AiFillCheckCircle />,
+        }}
+      />
+      {/* toast messages */}
       {/* <div className="app-content flex h-full w-full items-center justify-center overflow-y-scroll bg-neutral-50 p-8"> */}
       <Router>
         <Routes>
