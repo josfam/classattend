@@ -9,7 +9,7 @@ const LecturerClassrooms = () => {
   const getClasses = async () => {
     try {
       const response = await fetch(`${api_url}classrooms`, {
-        method: "POST",
+        method: "get",
         headers: {
           "Content-Type": "application/json",
         },

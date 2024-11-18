@@ -5,7 +5,7 @@ from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
 
 
-@lecturer_route.route('/classrooms', methods=['POST'] ,strict_slashes=False)
+@lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
 def get_classrooms():
     lecturer_id = session['user_id']
     # see if this lecturer already has classrooms
