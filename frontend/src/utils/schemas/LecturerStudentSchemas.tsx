@@ -51,10 +51,23 @@ const LoginFormSchema = z.object({
   password: z.string().min(1, { message: "A password is required" }),
 });
 
+const AddClassroomSchema = z.object({
+  className: z
+    .string()
+    .min(3, { message: "Name must be longer than 3 characters" }),
+  classCode: z
+    .string()
+    .min(3, { message: "Code must be longer than 3 characters" }),
+  classDescription: z
+    .string()
+    .min(10, { message: "Description must be longer than 10 characters" }),
+});
+
 export {
   SharedSchema,
   LecturerSchema,
   StudentSchema,
   SignupFormSchema,
   LoginFormSchema,
+  AddClassroomSchema,
 };
