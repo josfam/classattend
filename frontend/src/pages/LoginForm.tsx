@@ -14,8 +14,8 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { LoginFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 import { Role } from "@/utils/schemas/SchemaConstants";
+import { SuccessToast, ErrorToast } from "@/components/Toasts";
 import LoginUser from "@/utils/auth/LoginUser";
 import useUserStore from "@/store/userStore"; // zustand store
 
@@ -45,18 +45,21 @@ const LoginForm = () => {
         setRole(role);
         // redirect based on role
         if (role === Role.Student) {
-          navigate("/student/");
+          navigate("/student/", {
+            state: { showSuccessToast: true, message: response.data.message },
+          });
         } else if (role === Role.Lecturer) {
-          navigate("/lecturer/");
+          navigate("/lecturer/", {
+            state: { showSuccessToast: true, message: response.data.message },
+          });
         }
       } else {
-        toast.error(response.message);
+        ErrorToast({ message: response.message });
       }
     } catch (error) {
       console.error(error);
-      toast.error("There was an error during login. Please try again", {
-        position: "top-right",
-      });
+      const message = "There was an error during login. Please try again";
+      ErrorToast({ message: message });
     }
   };
 
@@ -64,7 +67,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (location.state?.showSuccessToast) {
       const successMessage = location.state.message;
-      toast.success(successMessage);
+      SuccessToast({ message: successMessage });
 
       // clear success message toast
       navigate(location.pathname, { replace: true });
