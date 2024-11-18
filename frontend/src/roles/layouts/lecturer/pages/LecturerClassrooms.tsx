@@ -53,7 +53,19 @@ const LecturerClassrooms = () => {
 
   return (
     <>
-      {classList ? <ClassesGrid classList={classList} /> : <EmptyClassrooms />}
+      {classList ? (
+        <>
+          <ClassesGrid classList={classList} />
+          <button
+            className="btn-pri absolute bottom-4 right-6 h-14 w-14 rounded-full shadow-lg shadow-sky-200 hover:shadow-xl hover:shadow-sky-300"
+            onClick={() => navigate("/lecturer/classrooms/add")}
+          >
+            Add
+          </button>
+        </>
+      ) : (
+        <EmptyClassrooms />
+      )}
     </>
   );
 };
