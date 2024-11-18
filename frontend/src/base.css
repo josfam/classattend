@@ -8,9 +8,13 @@
 
 /* buttons */
 .btn-pri {
-  @apply mt-0 flex h-12 w-full items-center justify-center bg-sky-700 text-lg text-white hover:bg-sky-800 active:bg-sky-900;
+  @apply mt-0 flex h-12 w-full items-center justify-center bg-sky-700 text-lg text-white transition-all duration-150 hover:bg-sky-800 active:bg-sky-900;
 }
 
 .btn-sec {
-  @apply border border-sky-700 bg-transparent text-sky-700 hover:bg-sky-700 hover:text-white active:bg-sky-900 active:text-white;
+  @apply border border-sky-700 bg-transparent text-sky-700 transition-all duration-150 hover:bg-sky-700 hover:text-white active:bg-sky-900 active:text-white;
+}
+
+.btn-ghost {
+  @apply border-0 bg-sky-100 text-sky-800;
 }
