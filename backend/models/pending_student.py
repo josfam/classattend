@@ -16,11 +16,12 @@ class PendingStudent(db.Model):
     __tablename__ = 'pending_students'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    
+
     first_name = db.Column(db.String(120), nullable=False)
     last_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), nullable=False)
-    classroom_id = db.Column(db.Integer, db.ForeignKey('classrooms.id'), nullable=False)
+    classroom_id = db.Column(
+        db.Integer, db.ForeignKey('classrooms.id'), nullable=False
+    )
     # relationship back to the classroom
     classroom = db.relationship('Classroom', back_populates='pending_students')
-

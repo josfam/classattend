@@ -26,4 +26,6 @@ class Classroom(db.Model):
     # relationship to students via an association table
     students = db.relationship('StudentClassroom', back_populates='classrooms')
     # relationship to pending students (students who are yet to sign up)
-    pending_students = db.relationship('PendingStudent', back_populates='classroom')
+    pending_students = db.relationship(
+        'PendingStudent', back_populates='classroom'
+    )
