@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EmptyClassrooms from "./EmptyClassrooms";
 import { SuccessToast } from "@/components/Toasts";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import { ClassItem } from "../../base/types/Types";
 import ClassesGrid from "../../base/components/ClassesGrid";
 
 const LecturerClassrooms = () => {
-  const [classesFound, setClassesFound] = useState<boolean>(false);
   const [classList, setClassList] = useState<ClassItem[] | null>(null);
   const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
   const LECTURER_URL = import.meta.env.VITE_LECTURER_API_BASE_URL;
@@ -14,7 +13,8 @@ const LecturerClassrooms = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getClasses = async () => {
+  // memoize the getClasses function
+  const getClasses = useCallback(async () => {
     try {
       const response = await fetch(`${api_url}classrooms`, {
         method: "get",
@@ -28,21 +28,17 @@ const LecturerClassrooms = () => {
 
       if (response.ok) {
         setClassList(data.data);
-        console.log(classList); // DEBUG
-        if (classList && classList.length > 0) {
-          setClassesFound(true);
-        }
       } else {
         console.log(data.message);
       }
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getClasses();
-  }, []);
+  }, [getClasses]);
 
   // show successful login toast message from another page if stated
   useEffect(() => {
@@ -57,11 +53,7 @@ const LecturerClassrooms = () => {
 
   return (
     <>
-      {classesFound ? (
-        <ClassesGrid classList={classList} />
-      ) : (
-        <EmptyClassrooms />
-      )}
+      {classList ? <ClassesGrid classList={classList} /> : <EmptyClassrooms />}
     </>
   );
 };
