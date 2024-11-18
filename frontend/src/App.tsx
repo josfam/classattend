@@ -26,16 +26,15 @@ import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
 const App = () => {
   return (
     <>
+      {/* toast messages */}
       <Toaster
         richColors
-        position="top-center"
+        position="top-right"
         icons={{
           error: <AiFillExclamationCircle />,
           success: <AiFillCheckCircle />,
         }}
       />
-      {/* toast messages */}
-      {/* <div className="app-content flex h-full w-full items-center justify-center overflow-y-scroll bg-neutral-50 p-8"> */}
       <Router>
         <Routes>
           {/* public routes */}
