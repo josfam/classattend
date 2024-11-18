@@ -14,7 +14,12 @@ def get_classrooms():
     ).all()
     if not existing_classrooms:
         return jsonify({"message": "No classrooms found", "data": []}), 200
-    return jsonify({"message": "classes received"}), 200
+
+    all_classes = []
+    for classroom in existing_classrooms:
+        all_classes.append(classroom.to_dict())
+
+    return jsonify({"message": "classes received", "data": all_classes}), 200
 
 
 @lecturer_route.route('/addclassroom', methods=['POST'], strict_slashes=False)

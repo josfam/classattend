@@ -29,3 +29,12 @@ class Classroom(db.Model):
     pending_students = db.relationship(
         'PendingStudent', back_populates='classroom'
     )
+
+    def to_dict(self):
+        """Returns the dictionary representation of this class object"""
+        return {
+            'id': self.id,
+            'classCode': self.code,
+            'className': self.name,
+            'classDescription': self.description,
+        }
