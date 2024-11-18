@@ -35,7 +35,10 @@ const LecturerClassrooms = () => {
       console.error(error);
     }
   };
-  getClasses();
+
+  useEffect(() => {
+    getClasses();
+  }, []);
 
   // show successful login toast message from another page if stated
   useEffect(() => {
