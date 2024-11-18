@@ -8,7 +8,7 @@ interface ClassListProps {
 
 const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
   return (
-    <div className="flex w-full justify-between gap-5">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
       {classList &&
         classList.map((classItem) => (
           <Card
