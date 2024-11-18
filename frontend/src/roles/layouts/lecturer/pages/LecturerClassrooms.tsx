@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmptyClassrooms from "./EmptyClassrooms";
+import { SuccessToast } from "@/components/Toasts";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LecturerClassrooms = () => {
   const [classesFound, setClassesFound] = useState<boolean>(false);
   const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
   const LECTURER_URL = import.meta.env.VITE_LECTURER_API_BASE_URL;
   const api_url = `${BACKEND_URL}${LECTURER_URL}`;
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const getClasses = async () => {
     try {
       const response = await fetch(`${api_url}classrooms`, {
@@ -31,6 +36,17 @@ const LecturerClassrooms = () => {
     }
   };
   getClasses();
+
+  // show successful login toast message from another page if stated
+  useEffect(() => {
+    if (location.state?.showSuccessToast) {
+      const successMessage = location.state.message;
+      SuccessToast({ message: successMessage });
+
+      // clear success message toast
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
 
   return (
     <>
