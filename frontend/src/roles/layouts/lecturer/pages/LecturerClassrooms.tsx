@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import EmptyClassrooms from "./EmptyClassrooms";
 import { SuccessToast } from "@/components/Toasts";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ClassItem } from "../../base/types/Types";
+import ClassesGrid from "../../base/components/ClassesGrid";
 
 const LecturerClassrooms = () => {
   const [classesFound, setClassesFound] = useState<boolean>(false);
+  const [classList, setClassList] = useState<ClassItem[] | null>(null);
   const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
   const LECTURER_URL = import.meta.env.VITE_LECTURER_API_BASE_URL;
   const api_url = `${BACKEND_URL}${LECTURER_URL}`;
@@ -20,13 +23,14 @@ const LecturerClassrooms = () => {
         },
         credentials: "include",
       });
+
       const data = await response.json();
 
       if (response.ok) {
-        const classes = data.data;
-        console.log(classes); // DEBUG
-        if (classes && classes.length === 0) {
-          setClassesFound(false);
+        setClassList(data.data);
+        console.log(classList); // DEBUG
+        if (classList && classList.length > 0) {
+          setClassesFound(true);
         }
       } else {
         console.log(data.message);
@@ -54,7 +58,7 @@ const LecturerClassrooms = () => {
   return (
     <>
       {classesFound ? (
-        <h1 className="text-3xl">Your classrooms</h1>
+        <ClassesGrid classList={classList} />
       ) : (
         <EmptyClassrooms />
       )}
