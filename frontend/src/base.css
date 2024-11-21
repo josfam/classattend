@@ -15,6 +15,10 @@
   @apply border border-sky-700 bg-transparent text-sky-700 transition-all duration-150 hover:bg-sky-700 hover:text-white active:bg-sky-900 active:text-white;
 }
 
-.btn-ghost {
-  @apply border-0 bg-sky-100 text-sky-800;
+.btn-ter {
+  @apply border-0 bg-sky-100 text-sky-700;
+}
+
+.btn-invisible {
+  @apply border-0 bg-transparent text-sky-700 underline-offset-8 hover:font-semibold hover:underline;
 }
