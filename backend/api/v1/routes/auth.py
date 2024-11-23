@@ -7,6 +7,21 @@ from backend.models.lecturer import Lecturer
 from backend.models.student import Student
 
 
+@auth_route.route('/checkloggedin', methods=['POST'], strict_slashes=False)
+def check_logged_in():
+    """Checks if the user is logged in"""
+    print(f"[Session]: {session.get('user_id')}")
+    if not session.get('user_id'):
+        return (
+            jsonify({'message': 'Try logging in again'}),
+            401,
+        )
+    return (
+        jsonify({'message': 'OK'}),
+        200,
+    )
+
+
 @auth_route.route('/signup', methods=['POST'], strict_slashes=False)
 def signup():
     """Signs a user up"""
