@@ -1,19 +1,28 @@
 import React from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClassItem } from "../types/Types";
+import { useNavigate } from "react-router-dom";
+import { MdArrowOutward } from "react-icons/md";
 
 interface ClassListProps {
   classList: ClassItem[] | null;
 }
 
 const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
+  const navigate = useNavigate();
+
+  const handleOpen = (classItem: ClassItem) => {
+    // pass the entire class item when navigating
+    navigate(`/lecturer/classrooms/${classItem.id}`, { state: { classItem } });
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
       {classList &&
         classList.map((classItem) => (
           <Card
             key={classItem.id}
-            className="flex h-48 w-[350px] flex-col gap-2 shadow-lg transition-all duration-150 hover:scale-105 hover:shadow-xl"
+            className="flex h-52 w-[350px] flex-col gap-2 shadow-lg transition-all duration-150 hover:scale-105 hover:shadow-xl"
           >
             <CardHeader className="h-fit rounded-t-lg bg-slate-500 px-0 pt-4">
               <CardTitle className="flex flex-col items-center justify-center gap-2 text-slate-50">
@@ -23,8 +32,17 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
                 <div className="text-xl font-normal">{classItem.classCode}</div>
               </CardTitle>
             </CardHeader>
-            <div className="mb-4 mt-auto flex w-full items-center justify-center">
-              <button className="btn-sec btn-ghost w-40">Open</button>
+            <div className="mb-4 mt-auto flex w-full items-center justify-between px-8">
+              <button className="btn-invisible text-lg">edit</button>
+              <button
+                className="btn-sec btn-ter group flex w-40 flex-row items-center justify-center gap-4 hover:font-medium"
+                onClick={() => handleOpen(classItem)}
+              >
+                <p className="text-lg">Open</p>
+                <div className="flex h-7 w-7 justify-end text-2xl transition-transform delay-75 group-hover:rotate-45">
+                  <MdArrowOutward className="self-center" />
+                </div>
+              </button>
             </div>
           </Card>
         ))}
