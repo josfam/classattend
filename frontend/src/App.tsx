@@ -22,6 +22,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Role } from "./utils/schemas/SchemaConstants";
 import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
 import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// tanstack client instance
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
@@ -35,42 +39,45 @@ const App = () => {
           success: <AiFillCheckCircle />,
         }}
       />
-      <Router>
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path={`${signupPath}`} element={<SignupForm />} />
-            <Route path={`${loginPath}`} element={<LoginForm />} />
-          </Route>
-
-          {/* protected student-specific routes */}
-          <Route element={<ProtectedRoute allowedRoles={[Role.Student]} />}>
-            <Route path="/student/*" element={<StudentLayout />}>
-              {/* nested routes for Outlet */}
-              <Route index element={<StudentHome />} />
+      {/* wrapping app in a tanstack query client provider */}
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Routes>
+            {/* public routes */}
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path={`${signupPath}`} element={<SignupForm />} />
+              <Route path={`${loginPath}`} element={<LoginForm />} />
             </Route>
-          </Route>
 
-          {/* protected lecturer-specific routes */}
-          <Route element={<ProtectedRoute allowedRoles={[Role.Lecturer]} />}>
-            <Route path="/lecturer/*" element={<LecturerLayout />}>
-              <Route
-                index
-                element={<Navigate to={`${classroomsPath}`} replace />}
-              ></Route>
-              <Route
-                path={`${classroomsPath}`}
-                element={<LecturerClassrooms />}
-              ></Route>
-              <Route
-                path={`${classroomsPath}/add`}
-                element={<AddClassroom />}
-              ></Route>
+            {/* protected student-specific routes */}
+            <Route element={<ProtectedRoute allowedRoles={[Role.Student]} />}>
+              <Route path="/student/*" element={<StudentLayout />}>
+                {/* nested routes for Outlet */}
+                <Route index element={<StudentHome />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </Router>
+
+            {/* protected lecturer-specific routes */}
+            <Route element={<ProtectedRoute allowedRoles={[Role.Lecturer]} />}>
+              <Route path="/lecturer/*" element={<LecturerLayout />}>
+                <Route
+                  index
+                  element={<Navigate to={`${classroomsPath}`} replace />}
+                ></Route>
+                <Route
+                  path={`${classroomsPath}`}
+                  element={<LecturerClassrooms />}
+                ></Route>
+                <Route
+                  path={`${classroomsPath}/add`}
+                  element={<AddClassroom />}
+                ></Route>
+              </Route>
+            </Route>
+          </Routes>
+        </Router>
+      </QueryClientProvider>
     </>
   );
 };
