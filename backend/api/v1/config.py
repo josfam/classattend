@@ -18,7 +18,7 @@ class BaseConfig:
     SESSION_TYPE = 'sqlalchemy'
     SESSION_SQLALCHEMY = db
     SESSION_PERMANENT = False  # sessions are temporary
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=80)
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
 
 
 class DevelopmentConfig(BaseConfig):
