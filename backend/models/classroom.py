@@ -37,4 +37,5 @@ class Classroom(db.Model):
             'classCode': self.code,
             'className': self.name,
             'classDescription': self.description,
+            'lecturerId': self.lecturer_id
         }
