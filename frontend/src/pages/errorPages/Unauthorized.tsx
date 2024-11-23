@@ -1,4 +1,4 @@
-import { redirectDuration } from "@/utils/errors/errorConstants";
+import { redirectDuration } from "@/utils/timings/timings";
 
 const UnauthorizedPage = () => {
   return (
