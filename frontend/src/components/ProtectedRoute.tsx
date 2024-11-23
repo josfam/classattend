@@ -60,6 +60,8 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
 
   // Redirect to login page
   if (isLoggedIn === false) {
+    // clear local storage
+    localStorage.removeItem("user-store");
     navigate(`${loginPath}`, {
       replace: true,
       state: { showErrorToast: true, message: toastMessage },
