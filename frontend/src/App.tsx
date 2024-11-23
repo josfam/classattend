@@ -22,6 +22,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Role } from "./utils/schemas/SchemaConstants";
 import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
 import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
+import ClassroomPage from "./roles/layouts/lecturer/pages/ClassroomPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // tanstack client instance
@@ -72,6 +73,10 @@ const App = () => {
                 <Route
                   path={`${classroomsPath}/add`}
                   element={<AddClassroom />}
+                ></Route>
+                <Route
+                  path={`${classroomsPath}/:id`}
+                  element={<ClassroomPage />}
                 ></Route>
               </Route>
             </Route>
