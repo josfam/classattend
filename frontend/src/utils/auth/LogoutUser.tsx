@@ -20,6 +20,8 @@ const LogoutUser = ({ navigate, clearRole }: LogoutUserProps) => {
       if (response.ok) {
         // clear this user from zustand store
         clearRole();
+        // clear this user from local storage
+        localStorage.removeItem("user-store");
         navigate(`${loginPath}`, {
           state: { showSuccessToast: true, message: "Logged out successfully" },
         });
