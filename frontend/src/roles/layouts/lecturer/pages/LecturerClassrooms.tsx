@@ -3,20 +3,18 @@ import EmptyClassrooms from "./EmptyClassrooms";
 import { SuccessToast } from "@/components/Toasts";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ClassItem } from "../../base/types/Types";
+import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import ClassesGrid from "../../base/components/ClassesGrid";
 
 const LecturerClassrooms = () => {
   const [classList, setClassList] = useState<ClassItem[] | null>(null);
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_API_URL;
-  const LECTURER_URL = import.meta.env.VITE_LECTURER_API_BASE_URL;
-  const api_url = `${BACKEND_URL}${LECTURER_URL}`;
   const navigate = useNavigate();
   const location = useLocation();
 
   // memoize the getClasses function
   const getClasses = useCallback(async () => {
     try {
-      const response = await fetch(`${api_url}classrooms`, {
+      const response = await fetch(`${lecturerApiPath}classrooms`, {
         method: "get",
         headers: {
           "Content-Type": "application/json",

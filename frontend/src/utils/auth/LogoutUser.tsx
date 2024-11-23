@@ -1,6 +1,6 @@
-import { auth_url } from "./AuthConstants";
 import { NavigateFunction } from "react-router-dom";
 import { loginPath } from "../urlPaths/appUrlPaths";
+import { authApiPath } from "../urlPaths/apiPaths";
 
 interface LogoutUserProps {
   navigate: NavigateFunction;
@@ -10,7 +10,7 @@ interface LogoutUserProps {
 const LogoutUser = ({ navigate, clearRole }: LogoutUserProps) => {
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${auth_url}logout`, {
+      const response = await fetch(`${authApiPath}logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

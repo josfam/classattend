@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { LoginFormSchema } from "../schemas/LecturerStudentSchemas";
-import { auth_url } from "./AuthConstants";
+import { authApiPath } from "../urlPaths/apiPaths";
 
 // using z.infer to get the actual type of the schema
 type UserDataType = z.infer<typeof LoginFormSchema>;
@@ -12,7 +12,7 @@ interface LoginUserProps {
 
 const LoginUser = async ({ userData }: LoginUserProps) => {
   try {
-    const response = await fetch(`${auth_url}login`, {
+    const response = await fetch(`${authApiPath}login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
