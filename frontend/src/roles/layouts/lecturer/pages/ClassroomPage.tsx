@@ -13,13 +13,16 @@ const ClassroomPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["classList"],
     queryFn: async () => {
-      const response = await fetch(`${lecturerApiPath}getStudentList/${classItem.id}`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${lecturerApiPath}getStudentList/${classItem.id}`,
+        {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
-      });
+      );
       const result = await response.json();
       if (!response.ok) {
         throw new Error("Failed to fetch your class list, try again");
