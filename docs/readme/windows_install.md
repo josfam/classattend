@@ -23,7 +23,10 @@ git clone https://github.com/josfam/classattend.git; if ($?) {cd .\classattend\f
 ```sh
 @"
 VITE_BACKEND_API_URL='http://127.0.0.1:5000/'
-VITE_AUTH_API_BASE_URL='api/v1/auth/'
+VITE_API_BASE_PATH='api/v1/'
+VITE_AUTH_API_BASE_PATH='auth/'
+VITE_LECTURER_API_BASE_PATH='lecturer/'
+VITE_STUDENT_API_BASE_PATH='student/'
 "@ | sc .env
 ```
 
@@ -45,9 +48,9 @@ cd ..\backend\; if ($?) { python -m venv venv-classattend; if ($?) { .\venv-clas
 
 ```sh
 @"
-DEV_DATABASE_URI_STRING='sqlite:///classattend.db'
-DEV_CLIENT_ADDRESS='http://localhost:5173'
-APP_ENVIRONMENT='development'
+DEV_DATABASE_URI_STRING="sqlite:///classattend.db"
+DEV_CLIENT_ADDRESS="http://localhost:5173"
+APP_ENVIRONMENT="development"
 "@ | sc .env
 ```
 

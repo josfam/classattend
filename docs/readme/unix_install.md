@@ -24,7 +24,10 @@ npm install
 
   ```sh
   VITE_BACKEND_API_URL='http://127.0.0.1:5000/'
-  VITE_AUTH_API_BASE_URL='api/v1/auth/'
+  VITE_API_BASE_PATH='api/v1/'
+  VITE_AUTH_API_BASE_PATH='auth/'
+  VITE_LECTURER_API_BASE_PATH='lecturer/'
+  VITE_STUDENT_API_BASE_PATH='student/'
   ```
 
 - Install backend dependencies (Counts on [python](https://www.python.org/downloads/) being already installed)
