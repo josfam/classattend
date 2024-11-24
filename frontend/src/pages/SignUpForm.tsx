@@ -27,7 +27,7 @@ import {
   StudentOptions,
 } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
-import { SignupFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
+import { SignupFormSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { loginPath } from "@/utils/urlPaths/appUrlPaths";
 import signupUser from "../utils/auth/SignupUser";
 

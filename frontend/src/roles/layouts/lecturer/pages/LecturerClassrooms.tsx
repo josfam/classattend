@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import EmptyClassrooms from "./EmptyClassrooms";
 import { SuccessToast } from "@/components/Toasts";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ClassItem } from "../../base/types/Types";
+import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import ClassesGrid from "../../base/components/ClassesGrid";
 

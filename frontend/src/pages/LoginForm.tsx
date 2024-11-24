@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader } from "@/components/ui/card";
-import { LoginFormSchema } from "@/utils/schemas/LecturerStudentSchemas";
+import { LoginFormSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Role } from "@/utils/schemas/SchemaConstants";
+import { Role } from "@/utils/schemasAndTypes/SchemaConstants";
 import { SuccessToast, ErrorToast } from "@/components/Toasts";
 import LoginUser from "@/utils/auth/LoginUser";
 import useUserStore from "@/store/userStore"; // zustand store

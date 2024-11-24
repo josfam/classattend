@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { ClassItem } from "../../base/types/Types";
+import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { useQuery } from "@tanstack/react-query";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import { refetchStudentListInterval } from "@/utils/timings/timings";
@@ -43,7 +43,7 @@ const ClassroomPage = () => {
 
   return (
     <>
-      <div className="flex w-full min-w-[350px] flex-col items-center justify-between gap-3 rounded-lg border border-sky-300 bg-sky-100 px-6 py-4 text-sky-900 shadow-lg shadow-sky-100 md:flex-row">
+      <div className="flex w-full min-w-[350px] flex-col items-center justify-between gap-3 rounded-lg border border-sky-300 bg-sky-100 px-10 py-4 text-sky-900 shadow-lg shadow-sky-100 md:flex-row">
         <div className="flex flex-col">
           <h1 className="self-start text-2xl">{`${classItem.className}`}</h1>
           <p className="self-center md:self-start">{`(${classItem.classCode})`}</p>

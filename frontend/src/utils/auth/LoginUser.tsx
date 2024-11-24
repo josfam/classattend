@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { LoginFormSchema } from "../schemas/LecturerStudentSchemas";
+import { LoginFormSchema } from "../schemasAndTypes/LecturerStudentSchemas";
 import { authApiPath } from "../urlPaths/apiPaths";
 
 // using z.infer to get the actual type of the schema

@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
-import { AddClassroomSchema } from "@/utils/schemas/LecturerStudentSchemas";
+import { AddClassroomSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { ErrorToast } from "@/components/Toasts";
 import { classroomsPath } from "@/utils/urlPaths/appUrlPaths";
 import addClassroom from "../utils/AddClassroomHandler";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { ClassItem } from "../types/Types";
+import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { useNavigate } from "react-router-dom";
 import { MdArrowOutward } from "react-icons/md";
 

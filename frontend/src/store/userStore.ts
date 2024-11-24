@@ -4,7 +4,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Role } from "@/utils/schemas/SchemaConstants";
+import { Role } from "@/utils/schemasAndTypes/SchemaConstants";
 
 // role type definition, as a union of the enum values
 type RoleType = (typeof Role)[keyof typeof Role];

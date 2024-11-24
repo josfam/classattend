@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AddClassroomSchema } from "@/utils/schemas/LecturerStudentSchemas";
+import { AddClassroomSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 
 // using z.infer to get the actual type of the schema

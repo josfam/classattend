@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SignupFormSchema } from "../schemas/LecturerStudentSchemas";
+import { SignupFormSchema } from "../schemasAndTypes/LecturerStudentSchemas";
 import { authApiPath } from "../urlPaths/apiPaths";
 // using z.infer to get the actual type of the schema
 type UserDataType = z.infer<typeof SignupFormSchema>;
