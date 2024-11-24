@@ -19,7 +19,7 @@ import {
   classroomsPath,
 } from "./utils/urlPaths/appUrlPaths";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Role } from "./utils/schemas/SchemaConstants";
+import { Role } from "./utils/schemasAndTypes/SchemaConstants";
 import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
 import AddClassroom from "./roles/layouts/lecturer/pages/AddClassroom";
 import ClassroomPage from "./roles/layouts/lecturer/pages/ClassroomPage";
