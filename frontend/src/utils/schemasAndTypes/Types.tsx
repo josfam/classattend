@@ -6,4 +6,10 @@ type ClassItem = {
   classDescription: string;
 };
 
-export type { ClassItem };
+type StudentListType = {
+  "first name": string;
+  "last name": string;
+  "student email": string;
+};
+
+export type { ClassItem, StudentListType };
