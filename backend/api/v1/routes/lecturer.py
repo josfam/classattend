@@ -52,10 +52,8 @@ def add_classroom():
     '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
 )
 def get_student_list(class_id):
-    print('Class id is: ', class_id)  # DEBUG
     student_entries = StudentClassroom.query.filter_by(class_id=class_id)
     student_count = student_entries.count()
-    print(f'Student count: {student_count}')
 
     if not student_count:
         return (
