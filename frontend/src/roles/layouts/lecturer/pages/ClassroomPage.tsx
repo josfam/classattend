@@ -13,9 +13,8 @@ const ClassroomPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["classList"],
     queryFn: async () => {
-      const response = await fetch(`${lecturerApiPath}getStudentList`, {
-        method: "post",
-        body: JSON.stringify({ classId: classItem.classCode }),
+      const response = await fetch(`${lecturerApiPath}getStudentList/${classItem.id}`, {
+        method: "get",
         headers: {
           "Content-Type": "application/json",
         },

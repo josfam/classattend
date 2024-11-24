@@ -3,6 +3,7 @@ from . import lecturer_route
 from backend.models.engine.storage import db
 from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
+from backend.models.student_classroom import StudentClassroom
 
 
 @lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
@@ -45,3 +46,40 @@ def add_classroom():
     db.session.commit()
 
     return jsonify({'message': 'Classroom added successfully'}), 200
+
+
+@lecturer_route.route(
+    '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
+)
+def get_student_list(class_id):
+    print('Class id is: ', class_id)  # DEBUG
+    student_entries = StudentClassroom.query.filter_by(class_id=class_id)
+    student_count = student_entries.count()
+    print(f'Student count: {student_count}')
+
+    if not student_count:
+        return (
+            jsonify(
+                {
+                    'message': 'There are no students here, add some.',
+                    'data': [],
+                }
+            ),
+            200,
+        )
+    students = ""
+    return jsonify({'message': 'Here is the class list', 'data': students})
+
+
+@lecturer_route.route(
+    '/uploadStudentList', methods=['POST'], strict_slashes=False
+)
+def upload_student_list():
+    data: dict = request.get_json()
+    if not len(data):
+        return (
+            jsonify({'message': 'No student data was uploaded. Try again'}),
+            400,
+        )
+    print('Student dict submitted is: ', data)  # DEBUG
+    return jsonify({'message': 'Student list uploaded!'}), 200
