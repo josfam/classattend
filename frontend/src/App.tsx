@@ -39,6 +39,7 @@ const App = () => {
           error: <AiFillExclamationCircle />,
           success: <AiFillCheckCircle />,
         }}
+        visibleToasts={4}
       />
       {/* wrapping app in a tanstack query client provider */}
       <QueryClientProvider client={queryClient}>
