@@ -8,8 +8,6 @@ import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 
 const AddClassListInput = () => {
   const [fileSelected, setFileSelected] = useState<File | null>(null);
-  const [studentFileData, setStudentFileData] = useState<StudentListType[]>([]);
-
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -24,10 +22,10 @@ const AddClassListInput = () => {
     }
 
     Papa.parse(fileSelected, {
-      complete: (results) => {
+      complete: async (results) => {
         SuccessToast({ message: "File processed successfully" });
         const studentData = results.data as StudentListType[]; // type cast
-        setStudentFileData(studentData);
+        await uploadStudentList(studentData);
         console.log(studentData); // DEBUG
       },
       header: true,
@@ -58,8 +56,6 @@ const AddClassListInput = () => {
         });
       }
     };
-
-    await uploadStudentList(studentFileData);
   };
 
   return (
