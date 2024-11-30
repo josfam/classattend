@@ -3,7 +3,9 @@ from . import lecturer_route
 from backend.models.engine.storage import db
 from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
+from backend.models.student import Student
 from backend.models.student_classroom import StudentClassroom
+from backend.models.pending_student import PendingStudent
 
 
 @lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
@@ -52,10 +54,11 @@ def add_classroom():
     '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
 )
 def get_student_list(class_id):
-    student_entries = StudentClassroom.query.filter_by(class_id=class_id)
-    student_count = student_entries.count()
+    print('Class id', type(class_id))  # DEBUG
+    student_classroom_data = db.session.query(StudentClassroom)
+    pending_student_data = db.session.query(PendingStudent)
 
-    if not student_count:
+    if not (student_classroom_data and pending_student_data):
         return (
             jsonify(
                 {
@@ -65,6 +68,12 @@ def get_student_list(class_id):
             ),
             200,
         )
+    # collect both pending students and students officially in the class
+    all_student_classrooms = {
+        student_classroom.student_id: student_classroom.class_id
+        for student_classroom in db.session.query(StudentClassroom)
+    }
+
     students = ""
     return jsonify({'message': 'Here is the class list', 'data': students})
 
@@ -73,11 +82,48 @@ def get_student_list(class_id):
     '/uploadStudentList', methods=['POST'], strict_slashes=False
 )
 def upload_student_list():
-    data: dict = request.get_json()
+    data: list[dict] = request.get_json()
     if not len(data):
         return (
             jsonify({'message': 'No student data was uploaded. Try again'}),
             400,
         )
-    print('Student dict submitted is: ', data)  # DEBUG
+
+    # fetch all student emails and decide if a student is a pending student
+    all_students = {
+        student.user.email: student.id for student in db.session.query(Student)
+    }
+
+    all_pending_student_emails = set(
+        pending_student.email
+        for pending_student in db.session.query(PendingStudent)
+    )
+
+    classroom_id = data.get('classId')
+    for student_data in data.get('students'):
+        email = student_data.get('student email')
+        if (
+            email not in all_students
+            and email not in all_pending_student_emails
+        ):
+            # add to pending students
+            pending_student = PendingStudent(
+                first_name=student_data.get('first name', ''),
+                last_name=student_data.get('last name', ''),
+                email=email,
+                classroom_id=classroom_id,
+            )
+            db.session.add(pending_student)
+        else:
+            # add to student classroom
+            student_id = all_students.get(email)
+            if not student_id:
+                continue
+            student_classroom = StudentClassroom(
+                student_id=student_id, class_id=classroom_id
+            )
+            db.session.add(student_classroom)
+    db.session.commit()
+
+    # print('All emails', all_emails)
     return jsonify({'message': 'Student list uploaded!'}), 200
