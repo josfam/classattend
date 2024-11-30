@@ -1,12 +1,19 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
-import { StudentListType } from "@/utils/schemasAndTypes/Types";
+import {
+  StudentListType,
+  uploadedStudentPayload,
+} from "@/utils/schemasAndTypes/Types";
 import Papa from "papaparse";
 import { ErrorToast, SuccessToast } from "@/components/Toasts";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 
-const AddClassListInput = () => {
+interface AddClassInputProps {
+  classId: number;
+}
+
+const AddClassListInput = ({ classId }: AddClassInputProps) => {
   const [fileSelected, setFileSelected] = useState<File | null>(null);
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -25,21 +32,28 @@ const AddClassListInput = () => {
       complete: async (results) => {
         SuccessToast({ message: "File processed successfully" });
         const studentData = results.data as StudentListType[]; // type cast
-        await uploadStudentList(studentData);
-        console.log(studentData); // DEBUG
+
+        const payload: uploadedStudentPayload = {
+          classId: classId,
+          students: studentData as StudentListType[],
+        };
+
+        await uploadStudentList(payload);
       },
       header: true,
       skipEmptyLines: true,
     });
 
-    const uploadStudentList = async (studentData: StudentListType[]) => {
+    const uploadStudentList = async (
+      studentPayload: uploadedStudentPayload,
+    ) => {
       try {
         const response = await fetch(`${lecturerApiPath}uploadStudentList`, {
           method: "post",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(studentData),
+          body: JSON.stringify(studentPayload),
           credentials: "include",
         });
 

@@ -12,4 +12,9 @@ type StudentListType = {
   "student email": string;
 };
 
-export type { ClassItem, StudentListType };
+type uploadedStudentPayload = {
+  classId: number,
+  students: StudentListType[],
+}
+
+export type { ClassItem, StudentListType, uploadedStudentPayload};
