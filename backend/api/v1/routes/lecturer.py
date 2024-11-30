@@ -68,14 +68,35 @@ def get_student_list(class_id):
             ),
             200,
         )
-    # collect both pending students and students officially in the class
-    all_student_classrooms = {
-        student_classroom.student_id: student_classroom.class_id
+    # collect students with accounts
+    students_in_class = [
+        {
+            student_classroom.student.user.id: {
+                'firstName': student_classroom.student.user.first_name,
+                'lastName': student_classroom.student.user.last_name,
+                'isPending': False,
+            }
+        }
         for student_classroom in db.session.query(StudentClassroom)
-    }
+    ]
 
-    students = ""
-    return jsonify({'message': 'Here is the class list', 'data': students})
+    # collect pending students
+    students_in_class.extend(
+        [
+            {
+                pending_student.id: {
+                    'firstName': pending_student.first_name,
+                    'lastName': pending_student.last_name,
+                    'isPending': True,
+                }
+            }
+            for pending_student in db.session.query(PendingStudent)
+        ]
+    )
+
+    return jsonify(
+        {'message': 'Here is the class list', 'data': students_in_class}
+    )
 
 
 @lecturer_route.route(
