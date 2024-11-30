@@ -53,7 +53,7 @@ const ClassroomPage = () => {
         <button className="btn-pri w-52 text-nowrap">Take attendance</button>
       </div>
       <div className="mt-8 flex h-screen w-full flex-col">
-        {data?.isEmpty ? <AddClassListInput /> : <div>Yes data</div>}
+        {data?.isEmpty ? <AddClassListInput classId={classItem.id}/> : <div>Yes data</div>}
       </div>
     </>
   );
