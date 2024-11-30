@@ -99,6 +99,11 @@ def upload_student_list():
         for pending_student in db.session.query(PendingStudent)
     )
 
+    all_student_classrooms = set(
+        (student_classroom.student_id, student_classroom.class_id)
+        for student_classroom in db.session.query(StudentClassroom)
+    )
+
     classroom_id = data.get('classId')
     for student_data in data.get('students'):
         email = student_data.get('student email')
@@ -117,7 +122,12 @@ def upload_student_list():
         else:
             # add to student classroom
             student_id = all_students.get(email)
-            if not student_id:
+            # do not re-add existing students
+            student_exists = (
+                student_id,
+                classroom_id,
+            ) in all_student_classrooms
+            if not student_id or student_exists:
                 continue
             student_classroom = StudentClassroom(
                 student_id=student_id, class_id=classroom_id
