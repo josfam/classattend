@@ -1,4 +1,5 @@
 import { IconType } from "react-icons/lib";
+import clsx from "clsx";
 
 interface SideBarBtnProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,11 +7,14 @@ interface SideBarBtnProps
   Icon: IconType;
 }
 
-const SideBarBtn = ({ text, Icon, ...props }: SideBarBtnProps) => {
+const SideBarBtn = ({ text, Icon, className, ...props }: SideBarBtnProps) => {
   return (
     <button
       {...props}
-      className="btn-pri h-14 justify-start gap-3 rounded-none bg-sky-700"
+      className={clsx(
+        "btn-pri h-14 justify-start gap-3 rounded-none bg-sky-700",
+        className,
+      )}
     >
       <div>{Icon && <Icon className="text-3xl" />}</div>
       {text}
