@@ -10,7 +10,7 @@ const StudentsInClass = ({ studentList }: studentListProps) => {
     <div className="mb-8 mt-8 flex h-fit w-full min-w-[350px] flex-col gap-3 rounded-lg border border-slate-300 bg-slate-50 px-8 py-8">
       {studentList.map((studentData) => (
         <div
-          className={`flex h-14 w-full items-center justify-start rounded-sm px-6 text-center font-medium transition-all duration-100 hover:font-semibold hover:shadow-sm ${studentData.isPending ? "border border-gray-400 bg-gray-200 text-gray-500 hover:shadow-gray-400" : "border border-sky-300 bg-sky-100 text-sky-800 hover:shadow-sky-300"} `}
+          className={`flex h-16 w-full items-center justify-start rounded-sm px-6 text-center font-medium transition-all duration-100 hover:font-semibold hover:shadow-sm ${studentData.isPending ? "border border-gray-400 bg-gray-200 text-gray-500 hover:shadow-gray-400" : "border border-sky-300 bg-sky-100 text-sky-800 hover:shadow-sky-300"} `}
           key={studentData.studentId}
         >
           <div className={`flex w-full justify-between text-lg`}>
@@ -18,7 +18,11 @@ const StudentsInClass = ({ studentList }: studentListProps) => {
               {studentData.firstName} {studentData.lastName}
             </div>
             <div className="flex items-center text-xl">
-              <BsThreeDots />
+              {!studentData.isPending && (
+                <button className={`btn-sec rounded-full border-0 p-1`}>
+                  <BsThreeDots />
+                </button>
+              )}
             </div>
           </div>
         </div>
