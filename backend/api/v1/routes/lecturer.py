@@ -77,11 +77,10 @@ def get_student_list(class_id):
     # collect students with accounts
     students_in_class = [
         {
-            student_classroom.student.user.id: {
-                'firstName': student_classroom.student.user.first_name,
-                'lastName': student_classroom.student.user.last_name,
-                'isPending': False,
-            }
+            'studentId': student_classroom.student.user.id,
+            'firstName': student_classroom.student.user.first_name,
+            'lastName': student_classroom.student.user.last_name,
+            'isPending': False,
         }
         for student_classroom in db.session.query(StudentClassroom)
     ]
@@ -90,11 +89,10 @@ def get_student_list(class_id):
     students_in_class.extend(
         [
             {
-                pending_student.id: {
-                    'firstName': pending_student.first_name,
-                    'lastName': pending_student.last_name,
-                    'isPending': True,
-                }
+                'studentId': pending_student.id,
+                'firstName': pending_student.first_name,
+                'lastName': pending_student.last_name,
+                'isPending': True,
             }
             for pending_student in db.session.query(PendingStudent)
         ]
