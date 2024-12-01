@@ -98,8 +98,11 @@ def get_student_list(class_id):
         ]
     )
 
+    sorted_students = sorted(
+        students_in_class, key=lambda x: x.get('firstName')
+    )
     return jsonify(
-        {'message': 'Here is the class list', 'data': students_in_class}
+        {'message': 'Here is the class list', 'data': sorted_students}
     )
 
 
