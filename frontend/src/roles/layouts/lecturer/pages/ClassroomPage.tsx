@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import { refetchStudentListInterval } from "@/utils/timings/timings";
 import AddClassListInput from "../components/AddClassList";
+import StudentsInClass from "../components/StudentsInClass";
 
 const ClassroomPage = () => {
   const location = useLocation();
@@ -27,7 +28,6 @@ const ClassroomPage = () => {
       if (!response.ok) {
         throw new Error("Failed to fetch your class list, try again");
       }
-
       // returned to `data`
       return {
         isEmpty: result.data.length === 0,
@@ -52,9 +52,13 @@ const ClassroomPage = () => {
         </div>
         <button className="btn-pri w-52 text-nowrap">Take attendance</button>
       </div>
-      <div className="mt-8 flex h-screen w-full flex-col">
-        {data?.isEmpty ? <AddClassListInput classId={classItem.id}/> : <div>Yes data</div>}
-      </div>
+      <>
+        {data?.isEmpty ? (
+          <AddClassListInput classId={classItem.id} />
+        ) : (
+          <StudentsInClass studentList={data?.students} />
+        )}
+      </>
     </>
   );
 };
