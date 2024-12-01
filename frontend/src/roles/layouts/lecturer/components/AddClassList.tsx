@@ -73,7 +73,7 @@ const AddClassListInput = ({ classId }: AddClassInputProps) => {
   };
 
   return (
-    <div className="flex h-fit w-full flex-col items-center gap-10 rounded-lg border border-slate-300 bg-slate-100 px-6 py-6 md:flex-row">
+    <div className="mt-8 flex h-fit w-full flex-col items-center gap-10 rounded-lg border border-slate-300 bg-slate-100 px-6 py-6 md:flex-row">
       <div className="flex-col items-center justify-center gap-1 py-4">
         <p className="text-left text-xl text-slate-700">
           There are no students yet in this class
