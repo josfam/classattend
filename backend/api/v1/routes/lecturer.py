@@ -54,9 +54,15 @@ def add_classroom():
     '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
 )
 def get_student_list(class_id):
-    print('Class id', type(class_id))  # DEBUG
-    student_classroom_data = db.session.query(StudentClassroom)
-    pending_student_data = db.session.query(PendingStudent)
+    print('Class id', type(class_id), class_id)  # DEBUG
+    student_classroom_data = (
+        db.session.query(StudentClassroom).filter_by(class_id=class_id).first()
+    )
+    pending_student_data = (
+        db.session.query(PendingStudent)
+        .filter_by(classroom_id=class_id)
+        .first()
+    )
 
     if not (student_classroom_data and pending_student_data):
         return (
