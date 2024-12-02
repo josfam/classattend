@@ -9,7 +9,11 @@ lecturer_route = Blueprint(
 student_route = Blueprint(
     'student_route', __name__, url_prefix='/api/v1/student/'
 )
+classroom_route = Blueprint(
+    'classroom_route', __name__, url_prefix='/api/v1/classroom/'
+)
 
 from .auth import *
 from .lecturer import *
 from .student import *
+from .classroom import *

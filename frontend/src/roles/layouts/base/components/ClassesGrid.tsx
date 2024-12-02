@@ -3,6 +3,9 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { useNavigate } from "react-router-dom";
 import { MdArrowOutward } from "react-icons/md";
+import useUserStore from "@/store/userStore";
+import { Role } from "@/utils/schemasAndTypes/SchemaConstants";
+import QuickAttendBtn from "../../student/components/QuickAttendBtn";
 
 interface ClassListProps {
   classList: ClassItem[] | null;
@@ -10,10 +13,19 @@ interface ClassListProps {
 
 const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
   const navigate = useNavigate();
+  // check role, for conditional rendering of items
+  const role = useUserStore((state) => state.role);
+  const isLecturer = role == Role.Lecturer;
 
   const handleOpen = (classItem: ClassItem) => {
     // pass the entire class item when navigating
-    navigate(`/lecturer/classrooms/${classItem.id}`, { state: { classItem } });
+    if (isLecturer) {
+      navigate(`/lecturer/classrooms/${classItem.id}`, {
+        state: { classItem },
+      });
+    } else {
+      navigate(`/student/classrooms/${classItem.id}`, { state: { classItem } });
+    }
   };
 
   return (
@@ -33,9 +45,14 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
               </CardTitle>
             </CardHeader>
             <div className="mb-4 mt-auto flex w-full items-center justify-between px-8">
-              <button className="btn-invisible text-lg">edit</button>
+              {isLecturer ? (
+                <button className="btn-invisible text-lg">edit</button>
+              ) : (
+                <QuickAttendBtn classId={classItem.id} />
+              )}
+
               <button
-                className="btn-sec btn-ter group flex w-40 flex-row items-center justify-center gap-4 hover:font-medium"
+                className={`${isLecturer ? "btn-sec btn-ter" : "btn-invisible"} group flex w-40 flex-row items-center justify-center gap-4 hover:font-medium`}
                 onClick={() => handleOpen(classItem)}
               >
                 <p className="text-lg">Open</p>
