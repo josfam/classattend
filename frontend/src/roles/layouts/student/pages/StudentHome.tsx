@@ -1,7 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SuccessToast } from "@/components/Toasts";
-import { ClassItem } from "@/utils/schemasAndTypes/Types";
 import { studentApiPath } from "@/utils/urlPaths/apiPaths";
 import ClassesGrid from "../../base/components/ClassesGrid";
 import { useQuery } from "@tanstack/react-query";
