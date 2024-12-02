@@ -131,7 +131,7 @@ def upload_student_list():
 
     all_student_classrooms = set(
         (student_classroom.student_id, student_classroom.class_id)
-        for student_classroom in db.session.query(StudentClassroom)
+        for student_classroom in db.session.query(StudentClassroom).all()
     )
 
     classroom_id = data.get('classId')

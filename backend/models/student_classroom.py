@@ -26,3 +26,6 @@ class StudentClassroom(db.Model):
     student = db.relationship('Student', back_populates='classrooms')
     # relationship to the classroom
     classrooms = db.relationship('Classroom', back_populates='students')
+
+    def __str__(self):
+        return f'id: {self.id}, student id: {self.student_id}, class id: {self.class_id}'
