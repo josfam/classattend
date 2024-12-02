@@ -127,7 +127,7 @@ def upload_student_list():
 
     all_pending_student_emails = set(
         pending_student.email
-        for pending_student in db.session.query(PendingStudent)
+        for pending_student in db.session.query(PendingStudent).all()
     )
 
     all_student_classrooms = set(
