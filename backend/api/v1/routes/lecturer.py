@@ -77,12 +77,12 @@ def get_student_list(class_id):
     # collect students with accounts
     students_in_class = [
         {
-            'studentId': student_classroom.student.user.id,
+            'studentId': student_classroom.student_id,
             'firstName': student_classroom.student.user.first_name,
             'lastName': student_classroom.student.user.last_name,
             'isPending': False,
         }
-        for student_classroom in db.session.query(StudentClassroom)
+        for student_classroom in db.session.query(StudentClassroom).all()
     ]
 
     # collect pending students
@@ -94,7 +94,7 @@ def get_student_list(class_id):
                 'lastName': pending_student.last_name,
                 'isPending': True,
             }
-            for pending_student in db.session.query(PendingStudent)
+            for pending_student in db.session.query(PendingStudent).all()
         ]
     )
 
