@@ -6,6 +6,7 @@ of a student list that was uploaded by a lecturer.
 """
 
 from .engine.storage import db
+from backend.utils.constants import PENDING_STUDENTS_ID_OFFSET
 
 
 class PendingStudent(db.Model):
@@ -25,3 +26,8 @@ class PendingStudent(db.Model):
     )
     # relationship back to the classroom
     classroom = db.relationship('Classroom', back_populates='pending_students')
+
+    @property
+    def offset_student_id(self):
+        """Returns an offset id for this entry, to prevent id collision with normal registered students"""
+        return self.id + PENDING_STUDENTS_ID_OFFSET

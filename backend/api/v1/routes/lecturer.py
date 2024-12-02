@@ -91,7 +91,7 @@ def get_student_list(class_id):
     students_in_class.extend(
         [
             {
-                'studentId': pending_student.id,
+                'studentId': pending_student.offset_student_id,
                 'firstName': pending_student.first_name,
                 'lastName': pending_student.last_name,
                 'isPending': True,
