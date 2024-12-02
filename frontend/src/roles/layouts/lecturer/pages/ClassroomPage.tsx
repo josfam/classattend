@@ -8,6 +8,7 @@ import {
 } from "@/utils/timings/timings";
 import AddClassListInput from "../components/AddClassList";
 import StudentsInClass from "../components/StudentsInClass";
+import TakeAttendanceBtn from "../components/TakeAttendanceBtn";
 
 const ClassroomPage = () => {
   const location = useLocation();
@@ -54,7 +55,7 @@ const ClassroomPage = () => {
           <h1 className="self-start text-2xl">{`${classItem.className}`}</h1>
           <p className="self-center md:self-start">{`(${classItem.classCode})`}</p>
         </div>
-        <button className="btn-pri w-52 text-nowrap">Take attendance</button>
+        <TakeAttendanceBtn classHasStudents={!data?.isEmpty} />
       </div>
       <>
         {data?.isEmpty ? (
