@@ -3,6 +3,13 @@
 const redirectDuration = 5000;
 const loginRefetchInterval = 300000;
 const refetchInterval = 5000;
-const refetchStudentListInterval = 60000;
+const refetchStudentListInterval = 10000;
+const studentListStaleTime = 5000;
 
-export { redirectDuration, loginRefetchInterval, refetchInterval, refetchStudentListInterval };
+export {
+  redirectDuration,
+  loginRefetchInterval,
+  refetchInterval,
+  refetchStudentListInterval,
+  studentListStaleTime,
+};
