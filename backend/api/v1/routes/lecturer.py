@@ -64,7 +64,7 @@ def get_student_list(class_id):
         .first()
     )
 
-    if not (student_classroom_data and pending_student_data):
+    if not (student_classroom_data or pending_student_data):
         return (
             jsonify(
                 {
