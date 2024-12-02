@@ -12,4 +12,21 @@ type StudentListType = {
   "student email": string;
 };
 
-export type { ClassItem, StudentListType };
+type StudentDataInClassroom = {
+  firstName: string;
+  isPending: boolean;
+  lastName: string;
+  studentId: number;
+};
+
+type uploadedStudentPayload = {
+  classId: number;
+  students: StudentListType[];
+};
+
+export type {
+  ClassItem,
+  StudentListType,
+  uploadedStudentPayload,
+  StudentDataInClassroom,
+};

@@ -4,6 +4,7 @@
 
 import os
 from flask import Flask
+from flask_migrate import Migrate
 from flask_session import Session
 from flask_cors import CORS
 from backend.models.engine.storage import db
@@ -25,7 +26,8 @@ load_dotenv()
 def create_app():
     """Creates and returns the application object"""
     app = Flask(__name__)
-
+    # set up migrations
+    migrate = Migrate(app=app, db=db)
     # setup cors for all routes
     frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
     print('frontend_host', frontend_host)  # DEBUG

@@ -1,7 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import useUserStore from "@/store/userStore";
 import UnauthorizedPage from "@/pages/errorPages/Unauthorized";
-import { redirectDuration, refetchInterval } from "@/utils/timings/timings";
+import {
+  redirectDuration,
+  loginRefetchInterval,
+} from "@/utils/timings/timings";
 import { authApiPath } from "@/utils/urlPaths/apiPaths";
 import { loginPath } from "@/utils/urlPaths/appUrlPaths";
 import { useQuery } from "@tanstack/react-query";
@@ -40,7 +43,7 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
       }
     },
     retry: 1,
-    refetchInterval: refetchInterval,
+    refetchInterval: loginRefetchInterval,
   });
 
   useEffect(() => {

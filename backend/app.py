@@ -3,7 +3,9 @@
 """Runs an instance of the application"""
 
 from flask import jsonify
-from .api.v1.app_factory import create_app
+from backend.api.v1.app_factory import create_app
+
+# from .api.v1.app_factory import create_app
 
 app = create_app()
 

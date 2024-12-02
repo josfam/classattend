@@ -5,6 +5,8 @@ from backend.models.engine.storage import db
 from backend.models.user import User, UserRole
 from backend.models.lecturer import Lecturer
 from backend.models.student import Student
+from backend.models.pending_student import PendingStudent
+from backend.models.student_classroom import StudentClassroom
 
 
 @auth_route.route('/checkloggedin', methods=['POST'], strict_slashes=False)
@@ -60,10 +62,25 @@ def signup():
     elif role == UserRole.STUDENT:
         student_id = data.get('studentId')
         public_key = data.get('public_key', None)
-        add_student(
-            student_id=student_id, public_key=public_key, user_id=new_user_id
+        new_student = Student(
+            user_id=new_user_id, student_id=student_id, public_key=public_key
         )
+        db.session.add(new_student)
 
+        # remove the student from all the pending student lists and add them to student classrooms
+        pending_rows = (
+            db.session.query(PendingStudent).filter_by(email=email).all()
+        )
+        for pending_row in pending_rows:
+            # add the student to the correct classroom
+            new_student_classroom = StudentClassroom(
+                student_id=new_user_id, class_id=pending_row.classroom_id
+            )
+            db.session.add(new_student_classroom)
+            # remove from pending students
+            db.session.delete(pending_row)
+
+    # commit changes
     db.session.commit()
 
     return jsonify({'message': 'Signed up successfully!'}), 200
@@ -116,12 +133,4 @@ def add_lecturer(title='', staff_id='', faculty='', user_id=0):
         user_id=user_id, faculty=faculty, title=title, staff_id=staff_id
     )
     db.session.add(new_lecturer)
-    db.session.commit()
-
-
-def add_student(student_id='', public_key=None, user_id=0):
-    new_student = Student(
-        user_id=user_id, student_id=student_id, public_key=public_key
-    )
-    db.session.add(new_student)
     db.session.commit()

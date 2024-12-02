@@ -18,6 +18,7 @@ class Classroom(db.Model):
     lecturer_id = db.Column(
         db.Integer, db.ForeignKey('lecturers.id'), nullable=True
     )
+    attendance_open = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=dt.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=dt.now)
 
@@ -38,4 +39,5 @@ class Classroom(db.Model):
             'className': self.name,
             'classDescription': self.description,
             'lecturerId': self.lecturer_id,
+            'attendanceOpen': self.attendance_open
         }
