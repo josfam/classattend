@@ -10,7 +10,7 @@ import LoginForm from "./pages/LoginForm";
 import HomePage from "./pages/HomePage";
 import StudentHome from "./roles/layouts/student/pages/StudentHome";
 import StudentLayout from "./roles/layouts/student/StudentLayout";
-import LecturerClassrooms from "./roles/layouts/lecturer/pages/LecturerClassrooms";
+import LecturerHome from "./roles/layouts/lecturer/pages/LecturerHome";
 import MainLayout from "./roles/layouts/MainLayout";
 import LecturerLayout from "./roles/layouts/lecturer/LecturerLayout";
 import {
@@ -69,7 +69,7 @@ const App = () => {
                 ></Route>
                 <Route
                   path={`${classroomsPath}`}
-                  element={<LecturerClassrooms />}
+                  element={<LecturerHome />}
                 ></Route>
                 <Route
                   path={`${classroomsPath}/add`}

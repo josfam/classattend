@@ -6,7 +6,7 @@ import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import ClassesGrid from "../../base/components/ClassesGrid";
 
-const LecturerClassrooms = () => {
+const LecturerHome = () => {
   const [classList, setClassList] = useState<ClassItem[] | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,4 +68,4 @@ const LecturerClassrooms = () => {
   );
 };
 
-export default LecturerClassrooms;
+export default LecturerHome;
