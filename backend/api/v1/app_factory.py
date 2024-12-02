@@ -36,7 +36,7 @@ def create_app():
         resources={
             r"/api/*": {
                 "origins": [frontend_host],
-                "methods": ['GET', 'POST', 'PUT', 'OPTIONS'],
+                "methods": ['GET', 'POST', 'PUT', 'OPTIONS', 'PATCH'],
                 "allow_headers": ['Content-Type', 'Authorization'],
             }
         },
