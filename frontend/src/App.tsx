@@ -56,10 +56,16 @@ const App = () => {
             <Route element={<ProtectedRoute allowedRoles={[Role.Student]} />}>
               <Route path="/student/*" element={<StudentLayout />}>
                 {/* nested routes for Outlet */}
-                <Route index element={<StudentHome />} />
+                <Route
+                  index
+                  element={<Navigate to={`${classroomsPath}`} replace />}
+                ></Route>
+                <Route
+                  path={`${classroomsPath}`}
+                  element={<StudentHome />}
+                ></Route>
               </Route>
             </Route>
-
             {/* protected lecturer-specific routes */}
             <Route element={<ProtectedRoute allowedRoles={[Role.Lecturer]} />}>
               <Route path="/lecturer/*" element={<LecturerLayout />}>
