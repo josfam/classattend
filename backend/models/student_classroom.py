@@ -12,10 +12,10 @@ class StudentClassroom(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     student_id = db.Column(
-        db.Integer, db.ForeignKey('students.id'), nullable=False
+        db.Integer, db.ForeignKey('students.user_id', name='fk_students_user_id'), nullable=False
     )
     class_id = db.Column(
-        db.Integer, db.ForeignKey('classrooms.id'), nullable=False
+        db.Integer, db.ForeignKey('classrooms.id', name='fk_classrooms_id'), nullable=False
     )
 
     # relationship to the student
