@@ -121,7 +121,8 @@ def upload_student_list():
 
     # fetch all student emails and decide if a student is a pending student
     all_students = {
-        student.user.email: student.id for student in db.session.query(Student)
+        student.user.email: student.user.id
+        for student in db.session.query(Student)
     }
 
     all_pending_student_emails = set(
