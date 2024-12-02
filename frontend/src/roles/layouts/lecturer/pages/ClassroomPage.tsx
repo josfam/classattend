@@ -2,7 +2,10 @@ import { useLocation } from "react-router-dom";
 import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { useQuery } from "@tanstack/react-query";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
-import { refetchStudentListInterval } from "@/utils/timings/timings";
+import {
+  refetchStudentListInterval,
+  studentListStaleTime,
+} from "@/utils/timings/timings";
 import AddClassListInput from "../components/AddClassList";
 import StudentsInClass from "../components/StudentsInClass";
 
@@ -36,6 +39,7 @@ const ClassroomPage = () => {
     },
     retry: 3,
     refetchInterval: refetchStudentListInterval,
+    staleTime: studentListStaleTime,
   });
 
   if (isLoading || isError) {
