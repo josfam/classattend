@@ -55,7 +55,10 @@ const ClassroomPage = () => {
           <h1 className="self-start text-2xl">{`${classItem.className}`}</h1>
           <p className="self-center md:self-start">{`(${classItem.classCode})`}</p>
         </div>
-        <TakeAttendanceBtn classHasStudents={!data?.isEmpty} />
+        <TakeAttendanceBtn
+          classHasStudents={!data?.isEmpty}
+          classId={classItem.id}
+        />
       </div>
       <>
         {data?.isEmpty ? (
