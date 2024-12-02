@@ -82,7 +82,9 @@ def get_student_list(class_id):
             'lastName': student_classroom.student.user.last_name,
             'isPending': False,
         }
-        for student_classroom in db.session.query(StudentClassroom).all()
+        for student_classroom in db.session.query(StudentClassroom)
+        .filter_by(class_id=class_id)
+        .all()
     ]
 
     # collect pending students
