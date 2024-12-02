@@ -39,5 +39,5 @@ class Classroom(db.Model):
             'className': self.name,
             'classDescription': self.description,
             'lecturerId': self.lecturer_id,
-            'attendanceOpen': self.attendance_open
+            'attendanceOpen': self.attendance_open,
         }
