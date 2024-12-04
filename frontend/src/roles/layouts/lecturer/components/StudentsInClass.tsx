@@ -14,8 +14,12 @@ const StudentsInClass = ({ studentList }: studentListProps) => {
           key={studentData.studentId}
         >
           <div className={`flex w-full justify-between text-lg`}>
-            <div className="self-start">
-              {studentData.firstName} {studentData.lastName}
+            <div className="flex w-full justify-between gap-2 self-start">
+              <div className="flex gap-2">
+                <div>{studentData.firstName}</div>
+                <div>{studentData.lastName}</div>
+              </div>
+              {studentData.isPending && <p>(No account)</p>}
             </div>
             <div className="flex items-center text-xl">
               {!studentData.isPending && (
