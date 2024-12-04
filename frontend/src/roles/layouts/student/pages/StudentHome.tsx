@@ -57,7 +57,10 @@ const StudentHome = () => {
   return (
     <>
       {data?.isEmpty ? (
-        <h1>No data</h1>
+        <div className="flex h-fit w-full flex-col gap-2 rounded-lg border-sky-300 bg-sky-100 p-8 text-xl text-sky-900">
+          <p>You have not been enrolled in any classes</p>
+          <p>Please ask your lecturer to enroll you and then try again</p>
+        </div>
       ) : (
         <>
           <ClassesGrid classList={data?.classes} />
