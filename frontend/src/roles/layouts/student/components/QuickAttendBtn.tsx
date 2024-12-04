@@ -1,43 +1,10 @@
-import { classroomApiPath } from "@/utils/urlPaths/apiPaths";
-import { useCallback, useEffect, useState } from "react";
-import { ErrorToast } from "@/components/Toasts";
-
 interface QuickAttendBtnProps {
   classId: number;
+  attendanceOpen: boolean;
 }
 
-const QuickAttendBtn = ({ classId }: QuickAttendBtnProps) => {
-  const [attendanceOpen, setAttendanceOpen] = useState<boolean>(false);
-
-  const checkAttendanceIsOpen = useCallback(async () => {
-    // check if the class is currently taking attendance
-    try {
-      const response = await fetch(
-        `${classroomApiPath}isAttendanceOpen/${classId}`,
-        {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        },
-      );
-
-      const data = await response.json();
-      if (response.ok) {
-        setAttendanceOpen(data.attendanceOpen);
-      } else {
-        ErrorToast({ message: data.message });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [classId]);
-
-  useEffect(() => {
-    checkAttendanceIsOpen();
-  }, [checkAttendanceIsOpen]);
-
+const QuickAttendBtn = ({ classId, attendanceOpen }: QuickAttendBtnProps) => {
+  console.log(classId);
   return (
     <button className="btn-sec relative text-base">
       <span className="absolute left-1 top-1 flex h-4 w-4">

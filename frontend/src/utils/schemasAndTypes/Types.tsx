@@ -4,6 +4,7 @@ type ClassItem = {
   classCode: string;
   className: string;
   classDescription: string;
+  attendanceOpen: boolean;
 };
 
 type StudentListType = {

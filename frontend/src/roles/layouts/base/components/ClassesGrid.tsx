@@ -48,7 +48,7 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
               {isLecturer ? (
                 <button className="btn-invisible text-lg">edit</button>
               ) : (
-                <QuickAttendBtn classId={classItem.id} />
+                <QuickAttendBtn classId={classItem.id} attendanceOpen={classItem.attendanceOpen} />
               )}
 
               <button
