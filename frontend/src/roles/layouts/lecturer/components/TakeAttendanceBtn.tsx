@@ -48,7 +48,7 @@ const TakeAttendanceBtn = ({
       disabled={!classHasStudents}
       onClick={handleAttendanceToggle}
     >
-      {takingAttendanceNow ? "Taking attendance" : "Take Attendance"}
+      {takingAttendanceNow ? "Taking attendance..." : "Take Attendance"}
     </button>
   );
 };
