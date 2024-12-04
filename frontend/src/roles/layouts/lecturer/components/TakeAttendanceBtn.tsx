@@ -10,13 +10,22 @@ const TakeAttendanceBtn = ({
   classId,
 }: TakeAttendanceBtnProps) => {
   const handleAttendanceToggle = async () => {
-    const response = await fetch(`${classroomApiPath}toggleAttendanceStatus/${classId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${classroomApiPath}toggleAttendanceStatus/${classId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       },
-      credentials: "include",
-    });
+    );
+    const data = await response.json();
+    if (response.ok) {
+      console.log(`Attendance toggle data: `, data); // DEBUG
+    } else {
+      console.error(`Attendance toggle error: `, data.message); // DEBUG
+    }
   };
   return (
     <button
