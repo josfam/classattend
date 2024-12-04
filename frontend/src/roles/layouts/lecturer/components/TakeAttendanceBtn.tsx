@@ -10,8 +10,8 @@ const TakeAttendanceBtn = ({
   classId,
 }: TakeAttendanceBtnProps) => {
   const handleAttendanceToggle = async () => {
-    await fetch(`${classroomApiPath}toggleAttendanceStatus/${classId}`, {
-      method: "patch",
+    const response = await fetch(`${classroomApiPath}toggleAttendanceStatus/${classId}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
