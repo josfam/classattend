@@ -1,4 +1,6 @@
+import { ErrorToast, SuccessToast } from "@/components/Toasts";
 import { classroomApiPath } from "@/utils/urlPaths/apiPaths";
+import { useState } from "react";
 
 interface TakeAttendanceBtnProps {
   classHasStudents: undefined | boolean;
@@ -9,6 +11,8 @@ const TakeAttendanceBtn = ({
   classHasStudents,
   classId,
 }: TakeAttendanceBtnProps) => {
+  const [takingAttendanceNow, setTakingAttendanceNow] =
+    useState<boolean>(false);
   const handleAttendanceToggle = async () => {
     const response = await fetch(
       `${classroomApiPath}toggleAttendanceStatus/${classId}`,
@@ -22,18 +26,19 @@ const TakeAttendanceBtn = ({
     );
     const data = await response.json();
     if (response.ok) {
-      console.log(`Attendance toggle data: `, data); // DEBUG
+      setTakingAttendanceNow(data.attendanceOpen);
+      SuccessToast({ message: data.message });
     } else {
-      console.error(`Attendance toggle error: `, data.message); // DEBUG
+      ErrorToast({ message: data.message });
     }
   };
   return (
     <button
-      className={`btn-pri w-52 text-nowrap ${!classHasStudents ? "border-0 bg-gray-400 hover:bg-gray-400" : ""}`}
+      className={`btn-pri w-52 text-nowrap ${!classHasStudents ? "border-0 bg-gray-400 hover:bg-gray-400" : ""} ${takingAttendanceNow}`}
       disabled={!classHasStudents}
       onClick={handleAttendanceToggle}
     >
-      Take attendance
+      {takingAttendanceNow ? "Taking attendance" : "Take Attendance"}
     </button>
   );
 };
