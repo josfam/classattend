@@ -66,6 +66,7 @@ def signup():
             user_id=new_user_id, student_id=student_id, public_key=public_key
         )
         db.session.add(new_student)
+        db.session.commit()
 
         # remove the student from all the pending student lists and add them to student classrooms
         pending_rows = (
