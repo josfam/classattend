@@ -37,6 +37,7 @@ class DevelopmentConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
     """Configuration for the production environment"""
 
+    SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URI_STRING')
     # flask session
     SESSION_COOKIE_SECURE = True
