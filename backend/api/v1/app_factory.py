@@ -32,17 +32,17 @@ def create_app():
     # apply a config based on environment
     if os.getenv('APP_ENVIRONMENT') == 'development':
         app.config.from_object(DevelopmentConfig)
-        frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
+        frontend_client = os.getenv('DEV_CLIENT_ADDRESS')
     else:
         app.config.from_object(ProductionConfig)
-        frontend_host = os.getenv('PROD_CLIENT_ADDRESS')
+        frontend_client = os.getenv('PROD_CLIENT_ADDRESS')
 
     # setup cors for all routes
     CORS(
         app,
         resources={
             r"/api/*": {
-                "origins": [frontend_host],
+                "origins": [frontend_client],
                 "methods": ['GET', 'POST', 'PUT', 'OPTIONS', 'PATCH'],
                 "allow_headers": ['Content-Type', 'Authorization'],
             }
