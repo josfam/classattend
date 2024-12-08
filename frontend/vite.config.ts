@@ -5,6 +5,7 @@ import { defineConfig } from "vite"
 // https://vitejs.dev/config/
 // https://ui.shadcn.com/docs/installation/vite
 export default defineConfig({
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {

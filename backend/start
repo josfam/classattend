@@ -1,0 +1,4 @@
+# explicitly make classattend the root directory
+export PYTHONPATH=$(dirname $(pwd))
+# start gunicorn with 4 workers and bind to port 5000, while listening on all interfaces
+gunicorn -w 4 -b 0.0.0.0:5000 app:app

@@ -4,6 +4,10 @@ venv-classattend/
 # helper scripts
 helper_scripts/
 
+# build ignores
+tsconfig.app.tsbuildinfo
+tsconfig.node.tsbuildinfo
+
 # node
 node_modules/
 .nvmrc
