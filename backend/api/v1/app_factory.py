@@ -30,7 +30,7 @@ def create_app():
     migrate = Migrate(app=app, db=db)
     # setup cors for all routes
     frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
-    print('frontend_host', frontend_host)  # DEBUG
+
     CORS(
         app,
         resources={

@@ -45,7 +45,6 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
 
-    print(new_user)  # DEBUG
     new_user_id = new_user.id
 
     # also create a lecturer or student, depending on the user's role.
