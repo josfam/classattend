@@ -28,9 +28,16 @@ def create_app():
     app = Flask(__name__)
     # set up migrations
     migrate = Migrate(app=app, db=db)
-    # setup cors for all routes
-    frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
 
+    # apply a config based on environment
+    if os.getenv('APP_ENVIRONMENT') == 'development':
+        app.config.from_object(DevelopmentConfig)
+        frontend_host = os.getenv('DEV_CLIENT_ADDRESS')
+    else:
+        app.config.from_object(ProductionConfig)
+        frontend_host = os.getenv('PROD_CLIENT_ADDRESS')
+
+    # setup cors for all routes
     CORS(
         app,
         resources={
@@ -42,12 +49,6 @@ def create_app():
         },
         supports_credentials=True,
     )
-
-    # apply a config based on environment
-    if os.getenv('APP_ENVIRONMENT') == 'development':
-        app.config.from_object(DevelopmentConfig)
-    else:
-        app.config.from_object(ProductionConfig)
 
     # initialize all extensions
     db.init_app(app)
