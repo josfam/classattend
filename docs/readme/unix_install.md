@@ -28,6 +28,7 @@ npm install
   VITE_AUTH_API_BASE_PATH='auth/'
   VITE_LECTURER_API_BASE_PATH='lecturer/'
   VITE_STUDENT_API_BASE_PATH='student/'
+  VITE_CLASSROOM_API_BASE_PATH='classroom/'
   ```
 
 - Install backend dependencies (Counts on [python](https://www.python.org/downloads/) being already installed)
@@ -50,9 +51,9 @@ npm install
   - ... and paste these contents into it
 
   ```sh
-  DEV_DATABASE_URI_STRING="sqlite:///classattend.db"
-  DEV_CLIENT_ADDRESS="http://localhost:5173"
-  APP_ENVIRONMENT="development"
+  DEV_DATABASE_URI_STRING='sqlite:///classattend-dev.db'
+  DEV_CLIENT_ADDRESS='http://localhost:5173'
+  APP_ENVIRONMENT='development'
   ```
 
 - Start the backend and frontend servers in two separate terminals
