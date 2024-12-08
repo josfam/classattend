@@ -31,9 +31,11 @@ class DevelopmentConfig(BaseConfig):
     SESSION_COOKIE_SAMESITE = (
         'None'  # separate domain for frontend and backend
     )
+    DEBUG = True
 
 
 class ProductionConfig(BaseConfig):
     """Configuration for the production environment"""
 
     SESSION_USE_SIGNER = True  # sign the cookie for security
+    DEBUG = False
