@@ -2,11 +2,13 @@ from flask import session, request, jsonify
 from . import classroom_route
 from backend.models.engine.storage import db
 from backend.models.classroom import Classroom
+from backend.api.v1.utils.auth import requires_token
 
 
 @classroom_route.route(
     '/isAttendanceOpen/<int:class_id>', methods=['GET'], strict_slashes=False
 )
+@requires_token
 def is_attendance_open(class_id):
     """Returns whether or not the attendance for a provided class is open"""
     classroom = db.session.query(Classroom).filter_by(id=class_id).first()
@@ -20,6 +22,7 @@ def is_attendance_open(class_id):
     methods=['PATCH'],
     strict_slashes=False,
 )
+@requires_token
 def toggle_attendance_status(class_id):
     """Toggles the attendance status of the classroom"""
     classroom = db.session.query(Classroom).filter_by(id=class_id).first()

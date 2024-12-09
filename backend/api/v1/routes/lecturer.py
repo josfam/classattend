@@ -6,11 +6,13 @@ from backend.models.classroom import Classroom
 from backend.models.student import Student
 from backend.models.student_classroom import StudentClassroom
 from backend.models.pending_student import PendingStudent
+from backend.api.v1.utils.auth import requires_token
 
 
 @lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
-def get_classrooms():
-    lecturer_id = session['user_id']
+@requires_token
+def get_classrooms(decoded_token):
+    lecturer_id = decoded_token['user_id']
     # see if this lecturer already has classrooms
     existing_classrooms = Classroom.query.filter_by(
         lecturer_id=lecturer_id
@@ -26,6 +28,7 @@ def get_classrooms():
 
 
 @lecturer_route.route('/addclassroom', methods=['POST'], strict_slashes=False)
+@requires_token
 def add_classroom():
     data: dict = request.get_json()
     class_name = data.get('className')
@@ -53,6 +56,7 @@ def add_classroom():
 @lecturer_route.route(
     '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
 )
+@requires_token
 def get_student_list(class_id):
     student_classroom_data = (
         db.session.query(StudentClassroom).filter_by(class_id=class_id).first()
@@ -110,6 +114,7 @@ def get_student_list(class_id):
 @lecturer_route.route(
     '/uploadStudentList', methods=['POST'], strict_slashes=False
 )
+@requires_token
 def upload_student_list():
     data: list[dict] = request.get_json()
     if not len(data):

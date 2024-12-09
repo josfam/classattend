@@ -1,4 +1,10 @@
 import bcrypt
+import jwt
+import os
+from functools import wraps
+from dotenv import load_dotenv
+from backend.utils.constants import TOKEN_EXPIRATION_TIME
+from datetime import datetime as dt, timedelta, timezone
 from flask import session, request, jsonify
 from . import auth_route
 from backend.models.engine.storage import db
@@ -7,21 +13,16 @@ from backend.models.lecturer import Lecturer
 from backend.models.student import Student
 from backend.models.pending_student import PendingStudent
 from backend.models.student_classroom import StudentClassroom
+from backend.api.v1.utils.auth import requires_token
+
+load_dotenv()
 
 
 @auth_route.route('/checkloggedin', methods=['POST'], strict_slashes=False)
-def check_logged_in():
-    """Checks if the user is logged in"""
-    print(f"[Session]: {session.get('user_id')}")
-    if not session.get('user_id'):
-        return (
-            jsonify({'message': 'Try logging in again'}),
-            401,
-        )
-    return (
-        jsonify({'message': 'OK'}),
-        200,
-    )
+@requires_token
+def check_logged_in(decoded_token):
+    """Checks if the user is logged in via JWT"""
+    return jsonify({'message': 'OK'}), 200
 
 
 @auth_route.route('/signup', methods=['POST'], strict_slashes=False)
@@ -98,17 +99,30 @@ def login():
 
     if not existing_user:
         return jsonify({'message': 'Account not found'}), 401
+
     hashed_password = existing_user.password_hash
     if not passwords_match(password, hashed_password=hashed_password):
         return jsonify({'message': 'Email or password is incorrect'}), 401
-    # add user to session
-    session['user_id'] = existing_user.id
-    role = existing_user.role.name.title()
-    session['user_role'] = role
-    return jsonify({'message': 'Logged in successfully', 'role': role}), 200
+
+    # Generate the JWT token
+    jwt_payload = {
+        'user_id': existing_user.id,
+        'role': existing_user.role.name.title(),
+        'expiration': (
+            dt.now(timezone.utc) + timedelta(minutes=TOKEN_EXPIRATION_TIME)
+        ).isoformat(),
+    }
+    secret_key = os.getenv('SECRET_KEY')
+    jwt_token = jwt.encode(jwt_payload, secret_key, algorithm='HS256')
+
+    return (
+        jsonify({'message': 'Logged in successfully', 'jwt_token': jwt_token}),
+        200,
+    )
 
 
 @auth_route.route('/logout', methods=['POST'], strict_slashes=False)
+@requires_token
 def logout():
     """Logs a user out of the application"""
     session.clear()
