@@ -1,3 +1,5 @@
+import { Role } from "./SchemaConstants";
+
 // for every class object
 type ClassItem = {
   id: number;
@@ -25,9 +27,19 @@ type uploadedStudentPayload = {
   students: StudentListType[];
 };
 
+type RoleType = (typeof Role)[keyof typeof Role];
+
+type decodedJWTToken = {
+  user_id: number;
+  role: RoleType;
+  expiration: string;
+};
+
 export type {
   ClassItem,
   StudentListType,
   uploadedStudentPayload,
   StudentDataInClassroom,
+  RoleType,
+  decodedJWTToken,
 };
