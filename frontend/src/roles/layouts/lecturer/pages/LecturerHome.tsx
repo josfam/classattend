@@ -51,6 +51,10 @@ const LecturerHome = () => {
 
   return (
     <>
+      <div className="w-full">
+        <h1 className="text-xl text-sky-800">Your classes</h1>
+        <div className="mb-8 mt-4 h-1 w-full rounded-sm bg-sky-100"></div>
+      </div>
       {classList ? (
         <>
           <ClassesGrid classList={classList} />

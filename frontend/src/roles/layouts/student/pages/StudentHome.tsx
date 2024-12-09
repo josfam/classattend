@@ -56,6 +56,10 @@ const StudentHome = () => {
 
   return (
     <>
+      <div className="w-full">
+        <h1 className="text-xl text-sky-800">Your classes</h1>
+        <div className="mb-8 mt-4 h-1 w-full rounded-sm bg-sky-100"></div>
+      </div>
       {data?.isEmpty ? (
         <div className="flex h-fit w-full flex-col gap-2 rounded-lg border-sky-300 bg-sky-100 p-8 text-xl text-sky-900">
           <p>You have not been enrolled in any classes</p>
