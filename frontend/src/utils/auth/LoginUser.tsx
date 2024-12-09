@@ -22,7 +22,9 @@ const LoginUser = async ({ userData }: LoginUserProps) => {
     });
     const data = await response.json();
     if (response.ok) {
-      return { success: true, data: data };
+      // store the generated token in local storage
+      localStorage.setItem("jwtToken", data.jwt_token);
+      return { success: true, data: data.jwt_token };
     } else {
       return { success: false, message: data.message };
     }

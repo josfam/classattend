@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Role } from "@/utils/schemasAndTypes/SchemaConstants";
 import { SuccessToast, ErrorToast } from "@/components/Toasts";
+import { jwtDecode } from "jwt-decode";
+import { decodedJWTToken } from "@/utils/schemasAndTypes/Types";
 import LoginUser from "@/utils/auth/LoginUser";
 import useUserStore from "@/store/userStore"; // zustand store
 
@@ -41,7 +43,11 @@ const LoginForm = () => {
     try {
       const response = await LoginUser({ userData: data });
       if (response.success) {
-        const role = response.data.role;
+        // decode the stored jwt token
+        const decodedJWT: decodedJWTToken = jwtDecode(response.data);
+        console.log("decoded JWT", decodedJWT); // DEBUG
+        console.log("role", decodedJWT.role); // DEBUG
+        const role = decodedJWT.role;
         setRole(role);
         // redirect based on role
         if (role === Role.Student) {

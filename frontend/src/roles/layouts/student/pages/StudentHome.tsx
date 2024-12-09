@@ -8,6 +8,7 @@ import {
   refetchStudentClassesInterval,
   studentClassesStaleTime,
 } from "@/utils/timings/timings";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 const StudentHome = () => {
   const navigate = useNavigate();
@@ -17,13 +18,17 @@ const StudentHome = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["studentClasses"],
     queryFn: async () => {
-      const response = await fetch(`${studentApiPath}getclasses`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await FetchWithToken({
+        url: `${studentApiPath}getclasses`,
+        options: {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
       });
+
       const result = await response.json();
       if (!response.ok) {
         throw new Error("Failed to fetch your class list, try again");
@@ -56,6 +61,10 @@ const StudentHome = () => {
 
   return (
     <>
+      <div className="w-full">
+        <h1 className="text-xl text-sky-800">Your classes</h1>
+        <div className="mb-8 mt-4 h-1 w-full rounded-sm bg-sky-100"></div>
+      </div>
       {data?.isEmpty ? (
         <div className="flex h-fit w-full flex-col gap-2 rounded-lg border-sky-300 bg-sky-100 p-8 text-xl text-sky-900">
           <p>You have not been enrolled in any classes</p>

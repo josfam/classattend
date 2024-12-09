@@ -2,6 +2,7 @@ import { ErrorToast, SuccessToast } from "@/components/Toasts";
 import { classroomApiPath } from "@/utils/urlPaths/apiPaths";
 // import { useState } from "react";
 import useClassroomStore from "@/store/classroomStore";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 interface TakeAttendanceBtnProps {
   classHasStudents: undefined | boolean;
@@ -23,16 +24,17 @@ const TakeAttendanceBtn = ({
   const takingAttendanceNow = attendanceStatus[classId];
 
   const handleAttendanceToggle = async () => {
-    const response = await fetch(
-      `${classroomApiPath}toggleAttendanceStatus/${classId}`,
-      {
+    const response = await FetchWithToken({
+      url: `${classroomApiPath}toggleAttendanceStatus/${classId}`,
+      options: {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
       },
-    );
+    });
+
     const data = await response.json();
     if (response.ok) {
       // setTakingAttendanceNow(data.attendanceOpen);

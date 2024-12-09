@@ -9,6 +9,7 @@ import { authApiPath } from "@/utils/urlPaths/apiPaths";
 import { loginPath } from "@/utils/urlPaths/appUrlPaths";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 interface ProtectedRouteProps {
   allowedRoles: string[];
@@ -27,13 +28,17 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
   } = useQuery({
     queryKey: ["checkLoggedIn"],
     queryFn: async () => {
-      const response = await fetch(`${authApiPath}checkloggedin`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await FetchWithToken({
+        url: `${authApiPath}checkloggedin`,
+        options: {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
       });
+
       const data = await response.json();
       if (response.ok) {
         return true;

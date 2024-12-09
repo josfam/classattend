@@ -9,6 +9,7 @@ import {
 import AddClassListInput from "../components/AddClassList";
 import StudentsInClass from "../components/StudentsInClass";
 import TakeAttendanceBtn from "../components/TakeAttendanceBtn";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 const ClassroomPage = () => {
   const location = useLocation();
@@ -18,16 +19,17 @@ const ClassroomPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["classList"],
     queryFn: async () => {
-      const response = await fetch(
-        `${lecturerApiPath}getStudentList/${classItem.id}`,
-        {
+      const response = await FetchWithToken({
+        url: `${lecturerApiPath}getStudentList/${classItem.id}`,
+        options: {
           method: "get",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
         },
-      );
+      });
+
       const result = await response.json();
       if (!response.ok) {
         throw new Error("Failed to fetch your class list, try again");
