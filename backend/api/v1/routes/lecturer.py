@@ -57,7 +57,7 @@ def add_classroom():
     '/getStudentList/<int:class_id>', methods=['GET'], strict_slashes=False
 )
 @requires_token
-def get_student_list(class_id):
+def get_student_list(decoded_token, class_id):
     student_classroom_data = (
         db.session.query(StudentClassroom).filter_by(class_id=class_id).first()
     )

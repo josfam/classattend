@@ -23,7 +23,7 @@ def is_attendance_open(class_id):
     strict_slashes=False,
 )
 @requires_token
-def toggle_attendance_status(class_id):
+def toggle_attendance_status(decoded_token, class_id):
     """Toggles the attendance status of the classroom"""
     classroom = db.session.query(Classroom).filter_by(id=class_id).first()
     if not classroom:
