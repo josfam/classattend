@@ -8,6 +8,7 @@ import {
 import Papa from "papaparse";
 import { ErrorToast, SuccessToast } from "@/components/Toasts";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 interface AddClassInputProps {
   classId: number;
@@ -48,13 +49,16 @@ const AddClassListInput = ({ classId }: AddClassInputProps) => {
       studentPayload: uploadedStudentPayload,
     ) => {
       try {
-        const response = await fetch(`${lecturerApiPath}uploadStudentList`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await FetchWithToken({
+          url: `${lecturerApiPath}uploadStudentList`,
+          options: {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(studentPayload),
+            credentials: "include",
           },
-          body: JSON.stringify(studentPayload),
-          credentials: "include",
         });
 
         const data = await response.json();

@@ -1,6 +1,7 @@
 import { NavigateFunction } from "react-router-dom";
 import { loginPath } from "../urlPaths/appUrlPaths";
 import { authApiPath } from "../urlPaths/apiPaths";
+import FetchWithToken from "./FetchWithToken";
 
 interface LogoutUserProps {
   navigate: NavigateFunction;
@@ -10,13 +11,17 @@ interface LogoutUserProps {
 const LogoutUser = ({ navigate, clearRole }: LogoutUserProps) => {
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${authApiPath}logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await FetchWithToken({
+        url: `${authApiPath}logout`,
+        options: {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
       });
+
       if (response.ok) {
         // clear this user from zustand store
         clearRole();
