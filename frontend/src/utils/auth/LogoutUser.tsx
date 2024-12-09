@@ -22,6 +22,8 @@ const LogoutUser = ({ navigate, clearRole }: LogoutUserProps) => {
         clearRole();
         // clear this user from local storage
         localStorage.removeItem("user-store");
+        // clear the jwt token
+        localStorage.removeItem("jwtToken");
         navigate(`${loginPath}`, {
           state: { showSuccessToast: true, message: "Logged out successfully" },
         });
