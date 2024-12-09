@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ClassItem } from "../../../../utils/schemasAndTypes/Types";
 import { lecturerApiPath } from "@/utils/urlPaths/apiPaths";
 import ClassesGrid from "../../base/components/ClassesGrid";
+import FetchWithToken from "@/utils/auth/FetchWithToken";
 
 const LecturerHome = () => {
   const [classList, setClassList] = useState<ClassItem[] | null>(null);
@@ -14,12 +15,15 @@ const LecturerHome = () => {
   // memoize the getClasses function
   const getClasses = useCallback(async () => {
     try {
-      const response = await fetch(`${lecturerApiPath}classrooms`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await FetchWithToken({
+        url: `${lecturerApiPath}classrooms`,
+        options: {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         },
-        credentials: "include",
       });
 
       const data = await response.json();
