@@ -5,7 +5,6 @@
 import os
 from flask import Flask
 from flask_migrate import Migrate
-from flask_session import Session
 from flask_cors import CORS
 from backend.models.engine.storage import db
 from backend.models.user import User
@@ -52,7 +51,6 @@ def create_app():
 
     # initialize all extensions
     db.init_app(app)
-    Session(app)
 
     # create the database tables
     with app.app_context():
