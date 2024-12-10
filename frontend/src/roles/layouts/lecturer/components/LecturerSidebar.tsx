@@ -1,8 +1,8 @@
 import { BiGroup } from "react-icons/bi";
-import SideBarBtn from "../../base/components/buttons/SidebarBtn";
+import SideBarBtn from "../../../../components/buttons/SidebarBtn";
 import { useLocation, useNavigate } from "react-router-dom";
 import { classroomsPath } from "@/utils/urlPaths/appUrlPaths";
-import BaseSidebar from "../../base/components/BaseSidebar";
+import BaseSidebar from "../../../../components/BaseSidebar";
 
 const LecturerSidebar = () => {
   const navigate = useNavigate();
