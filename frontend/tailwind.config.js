@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        'custom-725': '725px', // breakpoint at 725px
+        'custom-800': '800px', // breakpoint at 725px
       },
       borderRadius: {
         lg: 'var(--radius)',

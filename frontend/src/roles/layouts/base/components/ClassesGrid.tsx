@@ -29,12 +29,12 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
   };
 
   return (
-    <div className="custom-725:grid-cols-2 grid grid-cols-1 gap-5 gap-y-8 lg:grid-cols-2 xl:grid-cols-3">
+    <div className="custom-800:grid-cols-2 grid grid-cols-1 gap-5 gap-y-8 lg:grid-cols-2 xl:grid-cols-3">
       {classList &&
         classList.map((classItem) => (
           <Card
             key={classItem.id}
-            className="flex h-52 w-[320px] flex-col gap-2 shadow-lg transition-all duration-150 hover:scale-105 hover:shadow-xl"
+            className="flex h-52 w-[350px] flex-col gap-2 shadow-lg transition-all duration-150 hover:scale-105 hover:shadow-xl"
           >
             <CardHeader className="h-fit rounded-t-lg bg-slate-500 px-0 pt-4">
               <CardTitle className="flex flex-col items-center justify-center gap-2 text-slate-50">
