@@ -115,7 +115,7 @@ def get_student_list(decoded_token, class_id):
     '/uploadStudentList', methods=['POST'], strict_slashes=False
 )
 @requires_token
-def upload_student_list():
+def upload_student_list(decoded_token):
     data: list[dict] = request.get_json()
     if not len(data):
         return (
