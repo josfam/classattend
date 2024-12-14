@@ -1,6 +1,8 @@
 # How to run the application locally on unix systems i.e. Linux and Mac
 
-- Clone this repository and cd into the frontend directory
+## Set up the frontend
+
+- Clone this repository, cd into the frontend directory, and install frontend dependencies
 
 ```sh
 git clone https://github.com/josfam/classattend.git
