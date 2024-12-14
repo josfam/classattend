@@ -7,10 +7,22 @@ git clone https://github.com/josfam/classattend.git
 cd classattend/frontend
 ```
 
-- Install frontend dependencies (Counts on [nodejs](https://nodejs.org/en/download/package-manager) being already installed)
+**Important note for `npm` users**:
+\
+\
+This project does not use the usual `npm install` method for installing dependencies.
+Instead, it uses `pnpm` as the package manager.
+
+- Install `pnpm` if you do not already have it. (Counts on [nodejs](https://nodejs.org/en/download/package-manager) being already installed)
 
 ```sh
-npm install
+npm install -g pnpm
+```
+
+- Install frontend dependencies with `pnpm`
+
+```sh
+pnpm install
 ```
 
 - Setup the frontend environment variables
@@ -68,7 +80,7 @@ npm install
   - Open a new terminal, navigate to the frontend directory of the repository, and start the frontend
 
     ```sh
-    npm run dev
+    pnpm run dev
     ```
 
   - Copy and paste the url displayed in the frontend terminal in a browser. It should look something like this:
