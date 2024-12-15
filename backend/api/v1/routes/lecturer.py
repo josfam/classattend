@@ -129,8 +129,8 @@ def upload_student_list(decoded_token):
         for student in db.session.query(Student)
     }
 
-    all_pending_student_emails = set(
-        pending_student.email
+    all_pending_students_rows = set(
+        (pending_student.email, pending_student.classroom_id)
         for pending_student in db.session.query(PendingStudent).all()
     )
 
@@ -144,7 +144,7 @@ def upload_student_list(decoded_token):
         email = student_data.get('student email')
         if (
             email not in all_students
-            and email not in all_pending_student_emails
+            and (email, classroom_id) not in all_pending_students_rows
         ):
             # add to pending students
             pending_student = PendingStudent(
