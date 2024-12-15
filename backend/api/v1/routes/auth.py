@@ -126,14 +126,13 @@ def logout(decoded_token):
 def hash_password(password: str):
     """Hashes the provided password, and returns the hashed version"""
     salt = bcrypt.gensalt()
-    hashed_pwd = bcrypt.hashpw(password.encode(), salt)
-    return hashed_pwd
+    password = password.encode('utf-8')
+    return bcrypt.hashpw(password, salt)
 
 
-def passwords_match(password: str, hashed_password: str):
+def passwords_match(password: str, hashed_password: bytes):
     """Returns True if the password provided matches one that is stored (hash-wise)"""
-    computed_hashed_pwd = hash_password(password)
-    return bcrypt.checkpw(password.encode(), hashed_password)
+    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
 
 
 def add_lecturer(title='', faculty='', user_id=0):
