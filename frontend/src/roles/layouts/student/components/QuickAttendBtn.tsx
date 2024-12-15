@@ -36,9 +36,9 @@ const QuickAttendBtn = ({
       });
       const data = await response.json();
       if (response.ok) {
-        SuccessToast({message: data.message});
+        SuccessToast({ message: data.message });
       } else {
-        ErrorToast({message: data.message});
+        ErrorToast({ message: data.message });
       }
     } catch (error) {
       console.error(error);
