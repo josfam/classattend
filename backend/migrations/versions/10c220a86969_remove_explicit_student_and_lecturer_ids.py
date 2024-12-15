@@ -23,11 +23,14 @@ def upgrade():
     table_names = inspector.get_table_names()
     if 'sessions' in table_names:
         op.drop_table('sessions')
-    with op.batch_alter_table('lecturers', schema=None) as batch_op:
-        batch_op.drop_column('staff_id')
-
-    with op.batch_alter_table('students', schema=None) as batch_op:
-        batch_op.drop_column('student_id')
+    columns = [col['name'] for col in inspector.get_columns('lecturers')]
+    if 'staff_id' in columns:
+        with op.batch_alter_table('lecturers', schema=None) as batch_op:
+            batch_op.drop_column('staff_id')
+    columns = [col['name'] for col in inspector.get_columns('students')]
+    if 'student_id' in columns:
+        with op.batch_alter_table('students', schema=None) as batch_op:
+            batch_op.drop_column('student_id')
 
     # ### end Alembic commands ###
 
