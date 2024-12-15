@@ -63,7 +63,7 @@ interface StudentOptionsProps {
 const UserOptions = ({ form, nextStep, passwordsMatch }: UserOptionsProps) => {
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-x-4 gap-y-6 md:flex-row">
         {/* surname */}
         <FormField
           control={form.control}
