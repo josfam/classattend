@@ -98,10 +98,17 @@ def login():
     hashed_password = existing_user.password_hash
     if not passwords_match(password, hashed_password=hashed_password):
         return jsonify({'message': 'Email or password is incorrect'}), 401
+    role = existing_user.role.name.title()
+    role_id = None
+    if role == UserRole.LECTURER.name.title():
+        role_id = existing_user.lecturer.id
+    else:
+        role_id = existing_user.student.id
 
     # Generate the JWT token
     jwt_payload = {
         'user_id': existing_user.id,
+        'role_id': role_id,
         'role': existing_user.role.name.title(),
         'expiration': (
             dt.now(timezone.utc) + timedelta(minutes=TOKEN_EXPIRATION_TIME)
