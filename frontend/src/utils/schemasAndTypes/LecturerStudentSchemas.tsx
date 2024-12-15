@@ -30,12 +30,10 @@ const LecturerSchema = SharedSchema.extend({
   title: z.enum(["Mr.", "Mrs.", "Ms.", "Madam", "Professor", "Doctor"], {
     message: "Choose at least one title",
   }),
-  staffId: z.string().min(1, { message: "Provide your staff id" }),
   role: z.literal(Role.Lecturer),
 });
 
 const StudentSchema = SharedSchema.extend({
-  studentId: z.string().min(1, { message: "Provide your student id" }),
   role: z.literal(Role.Student),
 });
 

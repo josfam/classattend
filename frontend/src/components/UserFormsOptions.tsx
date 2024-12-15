@@ -34,13 +34,11 @@ type LecturerFormSchema = SharedSchema & {
     | "Post Graduate Studies and Research"
     | "Socio-Economic Sciences";
   title: "Mr." | "Mrs." | "Ms." | "Madam" | "Professor" | "Doctor";
-  staffId: string;
 };
 
 // Student-specific type
 type StudentFormSchema = SharedSchema & {
   role: "Student";
-  studentId: string;
 };
 
 // combined type for both student and lecturer schemas
@@ -53,10 +51,6 @@ interface UserOptionsProps {
 }
 
 interface LecturerOptionsProps {
-  form: UseFormReturn<FormSchema, undefined>;
-}
-
-interface StudentOptionsProps {
   form: UseFormReturn<FormSchema, undefined>;
 }
 
@@ -173,28 +167,6 @@ const UserOptions = ({ form, nextStep, passwordsMatch }: UserOptionsProps) => {
   );
 };
 
-const StudentOptions = ({ form }: StudentOptionsProps) => {
-  return (
-    <>
-      <FormField
-        control={form.control}
-        name="studentId"
-        render={({ field }) => (
-          <FormItem className="form-item">
-            <FormLabel className="text-base">Student Id</FormLabel>
-            <Input
-              {...field}
-              placeholder="Enter your student id"
-              className="bg-white text-lg"
-            />
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </>
-  );
-};
-
 const LecturerOptions = ({ form }: LecturerOptionsProps) => {
   return (
     <>
@@ -233,21 +205,6 @@ const LecturerOptions = ({ form }: LecturerOptionsProps) => {
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="staffId"
-          render={({ field }) => (
-            <FormItem className="form-item flex-3">
-              <FormLabel className="text-base">Staff Id</FormLabel>
-              <Input
-                {...field}
-                placeholder="Enter your staff id"
-                className="bg-white text-lg"
-              />
               <FormMessage />
             </FormItem>
           )}
@@ -296,4 +253,4 @@ const LecturerOptions = ({ form }: LecturerOptionsProps) => {
   );
 };
 
-export { UserOptions, StudentOptions, LecturerOptions };
+export { UserOptions, LecturerOptions };
