@@ -10,7 +10,7 @@ interface BaseSidebarProps {
 const BaseSidebar = ({ children }: BaseSidebarProps) => {
   return (
     <>
-      <div className="absolute flex h-16 w-full items-center justify-end bg-sky-700 px-5 py-2 lg:hidden">
+      <div className="fixed left-0 top-0 z-20 flex h-16 w-full items-center justify-end bg-sky-700 px-5 py-2 lg:hidden">
         <Sheet>
           <SheetTrigger asChild>
             {/* hamburger menu button to trigger the sheet motion*/}
