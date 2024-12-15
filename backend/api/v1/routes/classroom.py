@@ -3,6 +3,7 @@ from . import classroom_route
 from backend.models.engine.storage import db
 from backend.models.classroom import Classroom
 from backend.api.v1.utils.auth import requires_token
+from .attendance import create_attendance_session, remove_attendance_session
 
 
 @classroom_route.route(
@@ -31,16 +32,21 @@ def toggle_attendance_status(decoded_token, class_id):
     try:
         classroom.attendance_open = not classroom.attendance_open
         db.session.commit()
+        is_open = classroom.attendance_open
+        if is_open:
+            create_attendance_session(class_id=class_id)
+        else:
+            remove_attendance_session(class_id=class_id)
         message = (
             'Attendance taking started'
-            if classroom.attendance_open
+            if is_open
             else 'Attendance taking stopped'
         )
         return (
             jsonify(
                 {
                     'message': message,
-                    'attendanceOpen': classroom.attendance_open,
+                    'attendanceOpen': is_open,
                 }
             ),
             200,
@@ -48,9 +54,10 @@ def toggle_attendance_status(decoded_token, class_id):
     except Exception as e:
         # rollback in case of an error
         db.session.rollback()
+        # raise e  # DEBUG
         message = (
             'Could not turn on attendance taking'
-            if classroom.attendance_open
+            if is_open
             else 'Could not turn off attendance taking'
         )
         return jsonify({'message': message}), 500

@@ -14,6 +14,8 @@ from backend.models.lecturer import Lecturer
 from backend.models.classroom import Classroom
 from backend.models.student_classroom import StudentClassroom
 from backend.models.pending_student import PendingStudent
+from backend.models.attendance import Attendance
+from backend.models.attendance_session import AttendanceSession
 from .routes import auth_route, lecturer_route, student_route, classroom_route
 from dotenv import load_dotenv
 from datetime import timedelta
