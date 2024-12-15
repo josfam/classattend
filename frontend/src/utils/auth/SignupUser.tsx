@@ -9,7 +9,6 @@ interface signupUserProps {
 }
 
 const signupUser = async ({ userData }: signupUserProps) => {
-  console.log(`userData:`, userData); // DEBUG
   try {
     const response = await fetch(`${authApiPath}signup`, {
       method: "POST",

@@ -24,5 +24,4 @@ def get_classrooms(decoded_token):
         classroom.classrooms.to_dict() for classroom in student_classrooms
     ]
 
-    print(all_classes)
     return jsonify({"message": "classes received", "data": all_classes}), 200

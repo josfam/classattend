@@ -45,8 +45,6 @@ const LoginForm = () => {
       if (response.success) {
         // decode the stored jwt token
         const decodedJWT: decodedJWTToken = jwtDecode(response.data);
-        console.log("decoded JWT", decodedJWT); // DEBUG
-        console.log("role", decodedJWT.role); // DEBUG
         const role = decodedJWT.role;
         setRole(role);
         // redirect based on role
