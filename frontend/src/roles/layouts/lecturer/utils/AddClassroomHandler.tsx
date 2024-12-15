@@ -15,6 +15,7 @@ const addClassroom = async ({ classData }: classDataProps) => {
     const response = await FetchWithToken({
       url: `${lecturerApiPath}addclassroom`,
       options: {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
         },
