@@ -99,7 +99,9 @@ def get_student_list(decoded_token, class_id):
                 'lastName': pending_student.last_name,
                 'isPending': True,
             }
-            for pending_student in db.session.query(PendingStudent).all()
+            for pending_student in db.session.query(PendingStudent)
+            .filter_by(classroom_id=class_id)
+            .all()
         ]
     )
 
