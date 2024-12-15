@@ -1,12 +1,22 @@
 import { Role } from "./SchemaConstants";
 
 // for every class object
+type AttendanceData = {
+  attendance_id: string;
+  classId: number;
+  id: number;
+  isOpen: boolean;
+  studentId: number;
+};
+
 type ClassItem = {
   id: number;
   classCode: string;
   className: string;
   classDescription: string;
   attendanceOpen: boolean;
+  attendanceData: null | AttendanceData;
+  lecturerId: number;
 };
 
 type StudentListType = {
@@ -42,4 +52,5 @@ export type {
   StudentDataInClassroom,
   RoleType,
   decodedJWTToken,
+  AttendanceData,
 };

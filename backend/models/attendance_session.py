@@ -19,3 +19,12 @@ class AttendanceSession(db.Model):
         db.Integer, db.ForeignKey('classrooms.id'), nullable=False
     )
     is_open = db.Column(db.Boolean, default=True, nullable=False)
+
+    def to_dict(self):
+        """Dictionary representation of an attendance session"""
+        return {
+            'id': self.id,
+            'attendance_id': self.attendance_id,
+            'classId': self.class_id,
+            'isOpen': self.is_open,
+        }

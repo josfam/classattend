@@ -16,7 +16,13 @@ from backend.models.student_classroom import StudentClassroom
 from backend.models.pending_student import PendingStudent
 from backend.models.attendance import Attendance
 from backend.models.attendance_session import AttendanceSession
-from .routes import auth_route, lecturer_route, student_route, classroom_route
+from .routes import (
+    auth_route,
+    lecturer_route,
+    student_route,
+    classroom_route,
+    attendance_route,
+)
 from dotenv import load_dotenv
 from datetime import timedelta
 from .config import DevelopmentConfig, ProductionConfig
@@ -64,5 +70,6 @@ def create_app():
     app.register_blueprint(lecturer_route)
     app.register_blueprint(student_route)
     app.register_blueprint(classroom_route)
+    app.register_blueprint(attendance_route)
 
     return app

@@ -29,7 +29,7 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
   };
 
   return (
-    <div className="custom-800:grid-cols-2 grid grid-cols-1 gap-5 gap-y-8 lg:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 gap-y-8 custom-800:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
       {classList &&
         classList.map((classItem) => (
           <Card
@@ -51,6 +51,8 @@ const ClassesGrid: React.FC<ClassListProps> = ({ classList }) => {
                 <QuickAttendBtn
                   classId={classItem.id}
                   attendanceOpen={classItem.attendanceOpen}
+                  attendanceData={classItem.attendanceData}
+                  lecturerId={classItem.lecturerId}
                 />
               )}
 

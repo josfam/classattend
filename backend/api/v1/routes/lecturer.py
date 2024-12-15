@@ -109,7 +109,11 @@ def get_student_list(decoded_token, class_id):
         students_in_class, key=lambda x: x.get('firstName')
     )
     return jsonify(
-        {'message': 'Here is the class list', 'data': sorted_students}
+        {
+            'message': 'Here is the class list',
+            'classId': class_id,
+            'data': sorted_students,
+        }
     )
 
 
@@ -172,5 +176,4 @@ def upload_student_list(decoded_token):
             db.session.add(student_classroom)
     db.session.commit()
 
-    # print('All emails', all_emails)
     return jsonify({'message': 'Student list uploaded!'}), 200

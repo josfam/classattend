@@ -12,8 +12,12 @@ student_route = Blueprint(
 classroom_route = Blueprint(
     'classroom_route', __name__, url_prefix='/api/v1/classroom/'
 )
+attendance_route = Blueprint(
+    'attendance_route', __name__, url_prefix='/api/v1/attendance/'
+)
 
 from .auth import *
 from .lecturer import *
 from .student import *
 from .classroom import *
+from .attendance import *
