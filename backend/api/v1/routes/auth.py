@@ -51,20 +51,15 @@ def signup():
     # also create a lecturer or student, depending on the user's role.
     if role == UserRole.LECTURER:
         title = data.get('title')
-        staff_id = data.get('staffId')
         faculty = data.get('faculty')
         add_lecturer(
             title=title,
-            staff_id=staff_id,
             faculty=faculty,
             user_id=new_user_id,
         )
     elif role == UserRole.STUDENT:
-        student_id = data.get('studentId')
         public_key = data.get('public_key', None)
-        new_student = Student(
-            user_id=new_user_id, student_id=student_id, public_key=public_key
-        )
+        new_student = Student(user_id=new_user_id, public_key=public_key)
         db.session.add(new_student)
         db.session.commit()
 
@@ -141,9 +136,7 @@ def passwords_match(password: str, hashed_password: str):
     return bcrypt.checkpw(password.encode(), hashed_password)
 
 
-def add_lecturer(title='', staff_id='', faculty='', user_id=0):
-    new_lecturer = Lecturer(
-        user_id=user_id, faculty=faculty, title=title, staff_id=staff_id
-    )
+def add_lecturer(title='', faculty='', user_id=0):
+    new_lecturer = Lecturer(user_id=user_id, faculty=faculty, title=title)
     db.session.add(new_lecturer)
     db.session.commit()

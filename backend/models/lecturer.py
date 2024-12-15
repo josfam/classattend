@@ -14,7 +14,6 @@ class Lecturer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     faculty = db.Column(db.String(120), nullable=False)
     title = db.Column(db.String(60), nullable=False)
-    staff_id = db.Column(db.String(60), nullable=False)
 
     # relationship with user
     user = db.relationship('User', back_populates='lecturer', uselist=False)

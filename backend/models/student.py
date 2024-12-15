@@ -15,7 +15,6 @@ class Student(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey('users.id'), nullable=False, unique=True
     )
-    student_id = db.Column(db.String(60), nullable=False, unique=True)
 
     # storing the public key for biometric authentication via fingerprint
     public_key = db.Column(db.Text, nullable=True)

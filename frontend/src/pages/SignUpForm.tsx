@@ -21,11 +21,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-import {
-  UserOptions,
-  LecturerOptions,
-  StudentOptions,
-} from "@/components/UserFormsOptions";
+import { UserOptions, LecturerOptions } from "@/components/UserFormsOptions";
 import { Card, CardHeader } from "@/components/ui/card";
 import { SignupFormSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { loginPath } from "@/utils/urlPaths/appUrlPaths";
@@ -50,8 +46,6 @@ const SignupForm: React.FC = () => {
       role: undefined,
       faculty: undefined,
       title: undefined,
-      staffId: "",
-      studentId: "",
     },
     mode: "onChange",
   });
@@ -92,7 +86,7 @@ const SignupForm: React.FC = () => {
   }, [password, passwordConfirmation]);
 
   return (
-    <Card className="flex h-fit w-full md:w-3/4 lg:w-1/2 flex-col items-center justify-center border bg-slate-100 pb-8 shadow-lg shadow-slate-300">
+    <Card className="flex h-fit w-full flex-col items-center justify-center border bg-slate-100 pb-8 shadow-lg shadow-slate-300 md:w-3/4 lg:w-1/2">
       <CardHeader className="mb-4 w-full rounded-t-lg bg-slate-300 p-4 text-xl font-medium text-slate-600">
         {`Sign up (${formStep}/2)`}
       </CardHeader>
@@ -146,8 +140,6 @@ const SignupForm: React.FC = () => {
 
               {/* get additional information depending on role */}
               {userRole === "Lecturer" && <LecturerOptions form={form} />}
-
-              {userRole === "Student" && <StudentOptions form={form} />}
 
               <div className="flex gap-4">
                 <button
