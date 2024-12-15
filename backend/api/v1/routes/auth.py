@@ -5,7 +5,7 @@ from functools import wraps
 from dotenv import load_dotenv
 from backend.utils.constants import TOKEN_EXPIRATION_TIME
 from datetime import datetime as dt, timedelta, timezone
-from flask import session, request, jsonify
+from flask import request, jsonify
 from . import auth_route
 from backend.models.engine.storage import db
 from backend.models.user import User, UserRole
@@ -123,9 +123,8 @@ def login():
 
 @auth_route.route('/logout', methods=['POST'], strict_slashes=False)
 @requires_token
-def logout():
+def logout(decoded_token):
     """Logs a user out of the application"""
-    session.clear()
     return jsonify({"message": "Logged out successfully"}), 200
 
 

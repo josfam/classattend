@@ -1,4 +1,4 @@
-from flask import session, request, jsonify
+from flask import request, jsonify
 from . import classroom_route
 from backend.models.engine.storage import db
 from backend.models.classroom import Classroom
