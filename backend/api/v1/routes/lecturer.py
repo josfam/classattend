@@ -1,4 +1,4 @@
-from flask import session, request, jsonify
+from flask import request, jsonify
 from . import lecturer_route
 from backend.models.engine.storage import db
 from backend.models.lecturer import Lecturer
@@ -12,7 +12,7 @@ from backend.api.v1.utils.auth import requires_token
 @lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
 @requires_token
 def get_classrooms(decoded_token):
-    lecturer_id = decoded_token['user_id']
+    lecturer_id = decoded_token.get('role_id')
     # see if this lecturer already has classrooms
     existing_classrooms = Classroom.query.filter_by(
         lecturer_id=lecturer_id
@@ -29,12 +29,12 @@ def get_classrooms(decoded_token):
 
 @lecturer_route.route('/addclassroom', methods=['POST'], strict_slashes=False)
 @requires_token
-def add_classroom():
+def add_classroom(decoded_token):
     data: dict = request.get_json()
     class_name = data.get('className')
     class_code = data.get('classCode')
     class_description = data.get('classDescription')
-    lecturer_id = session.get('user_id')
+    lecturer_id = decoded_token.get('role_id')
 
     # check if this class already exists
     existing_class = Classroom.query.filter_by(code=class_code).first()
