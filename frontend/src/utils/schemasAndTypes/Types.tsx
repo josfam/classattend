@@ -30,6 +30,7 @@ type StudentDataInClassroom = {
   isPending: boolean;
   lastName: string;
   studentId: number;
+  hasTakenAttendance: null | boolean;
 };
 
 type uploadedStudentPayload = {

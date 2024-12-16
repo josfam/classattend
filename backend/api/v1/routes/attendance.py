@@ -32,6 +32,33 @@ def remove_attendance_session(class_id):
         db.session.commit()
 
 
+def get_attendance_session(class_id):
+    """Returns the attendance session for the given class id, or None if no session exists"""
+    existing_session = (
+        db.session.query(AttendanceSession)
+        .filter_by(class_id=class_id)
+        .first()
+    )
+    return existing_session
+
+
+@attendance_route.route(
+    '/getAttendanceSessionId/<int:class_id>',
+    methods=['GET'],
+    strict_slashes=False,
+)
+def get_attendance_session_id(class_id):
+    """Returns the attendance session attendance for the given class id, or None if no session exists"""
+    existing_session = (
+        db.session.query(AttendanceSession)
+        .filter_by(class_id=class_id)
+        .first()
+    )
+    if existing_session:
+        return existing_session.attendance_id
+    return None
+
+
 def attendance_session_exists(class_id):
     """Returns whether or not an attendance session exists"""
     existing_session = (
@@ -39,7 +66,7 @@ def attendance_session_exists(class_id):
         .filter_by(class_id=class_id)
         .first()
     )
-    return len(existing_session) > 0
+    return existing_session
 
 
 @attendance_route.route(
@@ -74,3 +101,19 @@ def register_attendance(decoded_token, attendance_id, class_id, lecturer_id):
     db.session.commit()
 
     return jsonify({'message': 'Attendance registered'}), 200
+
+
+def student_has_taken_attendance(student_id, class_id, attendance_id):
+    """Returns whether or not a student has taken attendance"""
+    if not attendance_id:
+        return False
+    existing_record = (
+        db.session.query(Attendance)
+        .filter_by(
+            student_id=student_id,
+            class_id=class_id,
+            attendance_id=attendance_id,
+        )
+        .first()
+    )
+    return existing_record is not None

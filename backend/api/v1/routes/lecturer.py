@@ -7,6 +7,12 @@ from backend.models.student import Student
 from backend.models.student_classroom import StudentClassroom
 from backend.models.pending_student import PendingStudent
 from backend.api.v1.utils.auth import requires_token
+from .attendance import (
+    attendance_session_exists,
+    get_attendance_session,
+    student_has_taken_attendance,
+    get_attendance_session_id,
+)
 
 
 @lecturer_route.route('/classrooms', methods=['GET'], strict_slashes=False)
@@ -77,18 +83,28 @@ def get_student_list(decoded_token, class_id):
             ),
             200,
         )
+
+    # check if attendance is currently happening
+    attendance_id = get_attendance_session_id(class_id)
+
     # collect students with accounts
-    students_in_class = [
-        {
+    students_in_class = []
+    for student_classroom in (
+        db.session.query(StudentClassroom).filter_by(class_id=class_id).all()
+    ):
+        student_info = {
             'studentId': student_classroom.student_id,
             'firstName': student_classroom.student.user.first_name,
             'lastName': student_classroom.student.user.last_name,
             'isPending': False,
         }
-        for student_classroom in db.session.query(StudentClassroom)
-        .filter_by(class_id=class_id)
-        .all()
-    ]
+        has_taken_attendance = student_has_taken_attendance(
+            student_id=student_classroom.student.id,
+            class_id=class_id,
+            attendance_id=attendance_id,
+        )
+        student_info.update({'hasTakenAttendance': has_taken_attendance})
+        students_in_class.append(student_info)
 
     # collect pending students
     students_in_class.extend(
@@ -108,10 +124,21 @@ def get_student_list(decoded_token, class_id):
     sorted_students = sorted(
         students_in_class, key=lambda x: x.get('firstName')
     )
+
+    # check if attendance is currently being taken
+    attendance_data = {}
+    if attendance_session_exists(class_id):
+        attendance_session = get_attendance_session(class_id)
+        attendance_data = {
+            'id': attendance_session.id,
+            'attendanceId': attendance_session.attendance_id,
+        }
+
     return jsonify(
         {
             'message': 'Here is the class list',
             'classId': class_id,
+            'attendanceData': attendance_data,
             'data': sorted_students,
         }
     )
