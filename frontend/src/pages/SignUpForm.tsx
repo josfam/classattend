@@ -30,6 +30,7 @@ import signupUser from "../utils/auth/SignupUser";
 const SignupForm: React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
   const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const nextStep = () => setFormStep((current) => current + 1);
   const prevStep = () => setFormStep((current) => current - 1);
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ const SignupForm: React.FC = () => {
 
   // submit handler
   const onSubmit = async (data: z.infer<typeof SignupFormSchema>) => {
+    setIsLoading(true);
     if (!passwordsMatch) {
+      setIsLoading(false);
       toast.error("Make sure passwords match before signing up");
       return;
     }
