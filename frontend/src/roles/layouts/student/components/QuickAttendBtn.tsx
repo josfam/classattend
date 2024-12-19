@@ -1,6 +1,6 @@
 import { ErrorToast, SuccessToast } from "@/components/Toasts";
 import FetchWithToken from "@/utils/auth/FetchWithToken";
-import { AttendanceData, decodedJWTToken } from "@/utils/schemasAndTypes/Types";
+import { AttendanceData } from "@/utils/schemasAndTypes/Types";
 import { attendanceApiPath } from "@/utils/urlPaths/apiPaths";
 
 interface QuickAttendBtnProps {
