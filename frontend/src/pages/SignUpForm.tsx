@@ -26,6 +26,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { SignupFormSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
 import { loginPath } from "@/utils/urlPaths/appUrlPaths";
 import signupUser from "../utils/auth/SignupUser";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const SignupForm: React.FC = () => {
   const [formStep, setFormStep] = useState<number>(1); // current step in the form
@@ -65,10 +66,12 @@ const SignupForm: React.FC = () => {
     }
     const response = await signupUser({ userData: data });
     if (response.success) {
+      setIsLoading(false);
       navigate(`${loginPath}`, {
         state: { showSuccessToast: true, message: response.message },
       });
     } else {
+      setIsLoading(false);
       toast.error(response.message);
       console.log(response.message);
     }
@@ -151,8 +154,19 @@ const SignupForm: React.FC = () => {
                 >
                   Back
                 </button>
-                <button type="submit" className="btn-pri mt-4 flex-1">
-                  Sign up
+                <button
+                  type="submit"
+                  className="btn-pri mt-4 flex-1"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <LoadingSpinner />
+                      <p>Signing up...</p>
+                    </div>
+                  ) : (
+                    <p>Sign up</p>
+                  )}
                 </button>
               </div>
             </>
