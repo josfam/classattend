@@ -12,13 +12,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader } from "@/components/ui/card";
 import { LoginFormSchema } from "@/utils/schemasAndTypes/LecturerStudentSchemas";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Role } from "@/utils/schemasAndTypes/SchemaConstants";
 import { SuccessToast, ErrorToast } from "@/components/Toasts";
 import { jwtDecode } from "jwt-decode";
 import { decodedJWTToken } from "@/utils/schemasAndTypes/Types";
 import LoginUser from "@/utils/auth/LoginUser";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import useUserStore from "@/store/userStore"; // zustand store
 
 /**
@@ -29,6 +30,7 @@ const LoginForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { setRole } = useUserStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -41,6 +43,7 @@ const LoginForm = () => {
   // submit handler
   const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
     try {
+      setIsLoading(true);
       const response = await LoginUser({ userData: data });
       if (response.success) {
         // decode the stored jwt token
@@ -64,6 +67,8 @@ const LoginForm = () => {
       console.error(error);
       const message = "There was an error during login. Please try again";
       ErrorToast({ message: message });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -121,7 +126,14 @@ const LoginForm = () => {
             )}
           />
           <button type="submit" className="btn-pri mt-4 flex-1">
-            Login
+            {isLoading ? (
+              <div className="flex items-center">
+                <LoadingSpinner />
+                <p>Logging in...</p>
+              </div>
+            ) : (
+              <p>Login</p>
+            )}
           </button>
         </form>
       </Form>
