@@ -7,7 +7,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-[500px] w-full flex-col items-center rounded-lg rounded-br-xl rounded-tr-xl border-2 border-slate-200 bg-slate-800 shadow-xl shadow-slate-200 lg:w-5/6 xl:flex xl:flex-row">
+    <div className="h-[500px] w-full flex-col items-center rounded-lg rounded-br-xl rounded-tr-xl border-2 border-slate-200 shadow-xl shadow-slate-200 lg:w-5/6 xl:flex xl:flex-row xl:bg-slate-800">
       <div className="hidden h-full min-w-[500px] flex-grow flex-col items-center justify-center gap-6 rounded-bl-lg rounded-tl-lg px-8 xl:flex">
         <img
           src="/classattend-logo-tagline.png"
