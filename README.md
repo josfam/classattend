@@ -38,9 +38,7 @@ their attendance
 help them make better decisions about when to use their absences.
 
 - Individual lecturers often do not have attendance history of students at their fingertips, which would help make
-better decisions
-\
-the revolve around academic metrics and so forth
+better decisions that revolve around academic metrics and so forth
 
 ---
 
